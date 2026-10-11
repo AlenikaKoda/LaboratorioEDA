@@ -3,6 +3,8 @@
 #include "Palabra.hpp"
 using namespace std;
 
+//crea un nodo de palabra con una copia de la cadena recibida
+//el nodo queda sin enlazar y se hace cargo de la memoria de su copia
 Palabra crearPalabra(Cadena texto)
 {
 	Palabra nueva = new nodoPalabra;
@@ -14,11 +16,13 @@ Palabra crearPalabra(Cadena texto)
 	return nueva;
 }
 
+//devuelve true si la lista de palabras no tiene ningun nodo
 bool listaPalabrasVacia(Palabra palabras)
 {
 	return (palabras == NULL);
 }
 
+//devuelve la cantidad de palabras de la lista recorriendola de principio a fin
 unsigned int cantidadPalabras(Palabra palabras)
 {
 	unsigned int cantidad = 0;
@@ -32,6 +36,9 @@ unsigned int cantidadPalabras(Palabra palabras)
 	return cantidad;
 }
 
+//inserta el nodo nueva en la posicion pos de la lista
+//las palabras que estaban desde esa posicion quedan una posicion mas adelante
+//precondicion: 1 <= pos <= cantidad de palabras + 1
 void insertarPalabraEnPos(Palabra &palabras, Palabra nueva, Posicion pos)
 {
 	Palabra anterior = NULL;
@@ -60,6 +67,8 @@ void insertarPalabraEnPos(Palabra &palabras, Palabra nueva, Posicion pos)
 	}
 }
 
+//quita el ultimo nodo de la lista y lo devuelve sin liberarlo, si la lista esta vacia devuelve NULL
+//se usa para pasar la palabra sobrante de una linea llena a la linea siguiente
 Palabra extraerUltimaPalabra(Palabra &palabras)
 {
 	Palabra ultima = NULL;
@@ -90,6 +99,9 @@ Palabra extraerUltimaPalabra(Palabra &palabras)
 	return ultima;
 }
 
+//elimina el nodo de la posicion pos y libera su memoria
+//las palabras siguientes suben una posicion
+//precondicion: 1 <= pos <= cantidad de palabras
 void eliminarPalabraEnPos(Palabra &palabras, Posicion pos)
 {
 	Palabra anterior = NULL;
@@ -117,6 +129,8 @@ void eliminarPalabraEnPos(Palabra &palabras, Posicion pos)
 	liberarPalabra(aBorrar);
 }
 
+//libera la memoria de un solo nodo, primero su cadena y despues el nodo
+//deja el puntero en NULL
 void liberarPalabra(Palabra &nodo)
 {
 	//primero se libera la cadena con delete[] porque se reservo con new[] y despues el nodo
@@ -125,6 +139,8 @@ void liberarPalabra(Palabra &nodo)
 	nodo = NULL;
 }
 
+//libera la memoria de todos los nodos de la lista
+//la lista queda vacia
 void liberarPalabras(Palabra &palabras)
 {
 	Palabra aBorrar = NULL;
@@ -139,6 +155,8 @@ void liberarPalabras(Palabra &palabras)
 	}
 }
 
+//muestra las palabras de la lista en orden separadas por un espacio
+//no deja espacio despues de la ultima palabra
 void mostrarPalabras(Palabra palabras)
 {
 	//recorre la lista mostrando cada palabra

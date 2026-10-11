@@ -2,13 +2,17 @@
 #include "Practico.hpp"
 using namespace std;
 
-//la linea nueva (vacia) la crea quien llama, como crearNodo e insertarFinal en las listas de clase
+//operacion 1 de la letra: inserta la linea nueva, que ya viene vacia, al final del texto
+//nunca da error
+//la linea la crea quien llama, como crearNodo e insertarFinal en las listas de clase
 TipoRetorno insertarLinea(Linea &texto, Linea nueva)
 {
 	insertarLineaFinal(texto, nueva);
 	return OK;
 }
 
+//operacion 2 de la letra: inserta una linea vacia en la posicion indicada, las lineas siguientes se corren una posicion
+//devuelve ERROR si la posicion no cumple 1 <= posicionLinea <= cantidad de lineas + 1
 TipoRetorno InsertarLineaEnPosicion(Linea &texto, Posicion posicionLinea)
 {
 	TipoRetorno ret = OK;
@@ -26,6 +30,9 @@ TipoRetorno InsertarLineaEnPosicion(Linea &texto, Posicion posicionLinea)
 	return ret;
 }
 
+//operacion 3 de la letra: borra la linea de la posicion indicada junto con sus palabras
+//las lineas siguientes suben una posicion
+//devuelve ERROR si la linea no existe en el texto
 TipoRetorno BorrarLinea(Linea &texto, Posicion posicionLinea)
 {
 	TipoRetorno ret = OK;
@@ -43,6 +50,8 @@ TipoRetorno BorrarLinea(Linea &texto, Posicion posicionLinea)
 	return ret;
 }
 
+//operacion 4 de la letra: borra todas las lineas del texto con sus palabras
+//nunca da error, si el texto ya estaba vacio queda igual
 TipoRetorno BorrarTodo(Linea &texto)
 {
 	//libera todas las lineas con sus palabras, si el texto ya estaba vacio queda igual
@@ -50,6 +59,8 @@ TipoRetorno BorrarTodo(Linea &texto)
 	return OK;
 }
 
+//operacion 6 de la letra: muestra todas las lineas del texto con su numero y sus palabras
+//si el texto no tiene lineas muestra Texto vacio
 TipoRetorno ImprimirTexto(Linea texto)
 {
 	//un texto sin lineas muestra un mensaje en vez de las lineas
@@ -64,6 +75,11 @@ TipoRetorno ImprimirTexto(Linea texto)
 	return OK;
 }
 
+//operacion 8 de la letra: inserta la palabra en la linea posicionLinea y en la posicion posicionPalabra de esa linea
+//las palabras siguientes de la linea se corren una posicion
+//si la linea queda con mas palabras que MAX_CANT_PALABRAS_X_LINEA el exceso pasa a las lineas siguientes
+//y si hace falta se agrega una linea nueva al final del texto
+//devuelve ERROR si la linea no existe o si la posicion de la palabra no cumple 1 <= posicionPalabra <= cantidad de palabras + 1
 TipoRetorno InsertarPalabra(Linea &texto, Posicion posicionLinea, Posicion posicionPalabra, Cadena palabraAIngresar)
 {
 	TipoRetorno ret = OK;
@@ -102,6 +118,9 @@ TipoRetorno InsertarPalabra(Linea &texto, Posicion posicionLinea, Posicion posic
 	return ret;
 }
 
+//operacion 9 de la letra: borra la palabra de la posicion posicionPalabra de la linea posicionLinea
+//las palabras siguientes de esa linea suben una posicion
+//devuelve ERROR si la linea no existe o si la palabra no existe en la linea
 TipoRetorno BorrarPalabra(Linea &texto, Posicion posicionLinea, Posicion posicionPalabra)
 {
 	TipoRetorno ret = OK;
@@ -125,6 +144,8 @@ TipoRetorno BorrarPalabra(Linea &texto, Posicion posicionLinea, Posicion posicio
 	return ret;
 }
 
+//operacion 11 de la letra: muestra la linea de la posicion indicada con su numero y sus palabras
+//devuelve ERROR si la linea no existe en el texto
 TipoRetorno ImprimirLinea(Linea texto, Posicion posicionLinea)
 {
 	TipoRetorno ret = OK;

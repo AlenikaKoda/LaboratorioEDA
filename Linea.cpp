@@ -2,6 +2,7 @@
 #include "Linea.hpp"
 using namespace std;
 
+//crea el nodo de una linea vacia, sin palabras y sin enlazar a otra linea
 Linea crearLinea()
 {
 	Linea nueva = new nodoLinea;
@@ -12,11 +13,13 @@ Linea crearLinea()
 	return nueva;
 }
 
+//devuelve true si el texto no tiene ninguna linea
 bool textoVacio(Linea texto)
 {
 	return (texto == NULL);
 }
 
+//devuelve la cantidad de lineas del texto recorriendolo de principio a fin
 unsigned int cantidadLineas(Linea texto)
 {
 	unsigned int cantidad = 0;
@@ -30,6 +33,8 @@ unsigned int cantidadLineas(Linea texto)
 	return cantidad;
 }
 
+//devuelve el nodo de la linea que esta en la posicion pos, la primera es la 1
+//si la posicion no existe devuelve NULL, la posicion 0 tampoco existe
 Linea obtenerLinea(Linea texto, Posicion pos)
 {
 	Linea resultado = NULL;
@@ -50,6 +55,7 @@ Linea obtenerLinea(Linea texto, Posicion pos)
 	return resultado;
 }
 
+//inserta el nodo nueva como ultima linea del texto
 void insertarLineaFinal(Linea &texto, Linea nueva)
 {
 	Linea aux = NULL;
@@ -72,6 +78,9 @@ void insertarLineaFinal(Linea &texto, Linea nueva)
 	}
 }
 
+//inserta el nodo nueva en la posicion pos del texto
+//las lineas que estaban desde esa posicion quedan una posicion mas adelante
+//precondicion: 1 <= pos <= cantidad de lineas + 1
 void insertarLineaEnPos(Linea &texto, Linea nueva, Posicion pos)
 {
 	Linea anterior = NULL;
@@ -91,6 +100,9 @@ void insertarLineaEnPos(Linea &texto, Linea nueva, Posicion pos)
 	}
 }
 
+//elimina la linea de la posicion pos y libera su memoria, incluidas sus palabras
+//las lineas siguientes suben una posicion
+//precondicion: 1 <= pos <= cantidad de lineas
 void eliminarLineaEnPos(Linea &texto, Posicion pos)
 {
 	Linea anterior = NULL;
@@ -112,6 +124,8 @@ void eliminarLineaEnPos(Linea &texto, Posicion pos)
 	liberarLinea(aBorrar);
 }
 
+//libera la memoria de una linea, primero sus palabras y despues el nodo
+//deja el puntero en NULL
 void liberarLinea(Linea &linea)
 {
 	//primero se liberan las palabras de la linea y despues el nodo de la linea
@@ -120,6 +134,8 @@ void liberarLinea(Linea &linea)
 	linea = NULL;
 }
 
+//libera la memoria de todas las lineas del texto y de sus palabras
+//el texto queda vacio
 void liberarTexto(Linea &texto)
 {
 	Linea aBorrar = NULL;
@@ -134,6 +150,8 @@ void liberarTexto(Linea &texto)
 	}
 }
 
+//muestra una linea con su numero y sus palabras, por ejemplo 2: hola mundo
+//una linea vacia muestra solo su numero
 void mostrarLinea(Linea linea, Posicion numero)
 {
 	//una linea vacia muestra solo su numero
@@ -142,6 +160,7 @@ void mostrarLinea(Linea linea, Posicion numero)
 	cout << endl;
 }
 
+//muestra todas las lineas del texto numeradas desde 1
 void mostrarTexto(Linea texto)
 {
 	Posicion numero = 1;

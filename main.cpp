@@ -9,7 +9,9 @@ using namespace std;
 #define MAX_LARGO_ENTRADA 256   //largo maximo de una linea de entrada, incluye el '\0'
 #define SEPARADORES " ,\t\r\n"   //el comando y los argumentos se separan con comas o con blancos
 
-//lee una linea completa con getchar y la guarda sin el enter, devuelve false cuando se acaba la entrada
+//lee una linea completa de la entrada con getchar y la guarda en entrada sin el enter
+//devuelve false cuando se acaba la entrada
+//si la linea no entra en el buffer avisa Linea demasiado larga y la devuelve vacia para que la linea siguiente se lea bien
 bool leerEntrada(Cadena entrada)
 {
 	int caracter = getchar();   //es int porque EOF no es un caracter
@@ -42,7 +44,11 @@ bool leerEntrada(Cadena entrada)
 	return hayEntrada;
 }
 
-//interpreta una linea de entrada, devuelve false cuando el comando es Salir
+//interpreta una linea de entrada con el comando y sus argumentos separados por comas o blancos y ejecuta la operacion
+//si la operacion devuelve ERROR o NO_IMPLEMENTADA lo muestra, con OK no muestra nada
+//si el comando no existe o sus argumentos no son los esperados muestra Comando invalido
+//las lineas en blanco se ignoran
+//devuelve false cuando el comando es Salir y true en cualquier otro caso
 bool ejecutarComando(Linea &texto, Cadena entrada)
 {
 	Cadena comando = strtok(entrada, SEPARADORES);   //el comando es el primer token de la linea
@@ -115,6 +121,8 @@ bool ejecutarComando(Linea &texto, Cadena entrada)
 	return seguir;
 }
 
+//lee comandos de la entrada y los ejecuta sobre un texto que empieza vacio
+//al terminar libera la memoria
 int main()
 {
 	Linea texto = NULL;   //al iniciar el texto es vacio

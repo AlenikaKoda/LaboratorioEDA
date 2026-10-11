@@ -5,6 +5,8 @@
 #define MAX_DIGITOS_NUMERO 9   //con 9 digitos el numero siempre entra en un unsigned int
 #define BASE_DECIMAL 10   //base para convertir una cadena de digitos en un numero
 
+//devuelve la cantidad de caracteres de la cadena sin contar el '\0'
+//si la cadena es NULL devuelve 0
 unsigned int largoCadena(Cadena cadena)
 {
 	unsigned int largo = 0;
@@ -21,6 +23,9 @@ unsigned int largoCadena(Cadena cadena)
 	return largo;
 }
 
+//compara dos cadenas caracter a caracter sin distinguir mayusculas de minusculas
+//las dos cadenas tienen que ser distintas de NULL y terminar en '\0'
+//devuelve true si tienen los mismos caracteres y el mismo largo
 bool cadenasIguales(Cadena cadena1, Cadena cadena2)
 {
 	unsigned int i = 0;
@@ -35,6 +40,9 @@ bool cadenasIguales(Cadena cadena1, Cadena cadena2)
 	return (tolower((unsigned char) cadena1[i]) == tolower((unsigned char) cadena2[i]));
 }
 
+//convierte una cadena de digitos en una posicion y la deja en pos
+//devuelve false si la cadena es NULL, esta vacia, tiene mas de MAX_DIGITOS_NUMERO caracteres o algun caracter no es un digito
+//cuando devuelve false el valor de pos no se debe usar
 bool cadenaAPosicion(Cadena cadena, Posicion &pos)
 {
 	unsigned int i = 0;
