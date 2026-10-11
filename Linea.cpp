@@ -6,6 +6,7 @@ Linea crearLinea()
 {
 	Linea nueva = new nodoLinea;
 
+	//la linea nueva no tiene palabras y todavia no esta enlazada a ninguna otra
 	nueva->palabras = NULL;
 	nueva->siguiente = NULL;
 	return nueva;
@@ -20,6 +21,7 @@ unsigned int cantidadLineas(Linea texto)
 {
 	unsigned int cantidad = 0;
 
+	//cuenta los nodos de la lista de lineas
 	while (texto != NULL)
 	{
 		cantidad++;
@@ -33,13 +35,16 @@ Linea obtenerLinea(Linea texto, Posicion pos)
 	Linea resultado = NULL;
 	Posicion actual = 1;
 
+	//la posicion 0 no existe
 	if (pos >= 1)
 	{
+		//avanza hasta la posicion pedida o hasta el final del texto
 		while (texto != NULL && actual < pos)
 		{
 			texto = texto->siguiente;
 			actual++;
 		}
+		//si se llego al final sin encontrar la posicion el resultado es NULL
 		resultado = texto;
 	}
 	return resultado;
@@ -49,17 +54,20 @@ void insertarLineaFinal(Linea &texto, Linea nueva)
 {
 	Linea aux = NULL;
 
+	//con el texto vacio la nueva pasa a ser la primera linea
 	if (textoVacio(texto))
 	{
 		texto = nueva;
 	}
 	else
 	{
+		//avanza hasta la ultima linea
 		aux = texto;
 		while (aux->siguiente != NULL)
 		{
 			aux = aux->siguiente;
 		}
+		//la nueva se enlaza a continuacion de la ultima
 		aux->siguiente = nueva;
 	}
 }
@@ -68,6 +76,7 @@ void insertarLineaEnPos(Linea &texto, Linea nueva, Posicion pos)
 {
 	Linea anterior = NULL;
 
+	//en la posicion 1 la nueva pasa a ser la primera linea del texto
 	if (pos <= 1)
 	{
 		nueva->siguiente = texto;
@@ -75,6 +84,7 @@ void insertarLineaEnPos(Linea &texto, Linea nueva, Posicion pos)
 	}
 	else
 	{
+		//se busca la linea anterior a la posicion y la nueva se enlaza entre esa linea y la que le seguia
 		anterior = obtenerLinea(texto, pos - 1);
 		nueva->siguiente = anterior->siguiente;
 		anterior->siguiente = nueva;
@@ -86,6 +96,7 @@ void eliminarLineaEnPos(Linea &texto, Posicion pos)
 	Linea anterior = NULL;
 	Linea aBorrar = NULL;
 
+	//la primera linea se borra moviendo el inicio del texto a la segunda
 	if (pos == 1)
 	{
 		aBorrar = texto;
@@ -93,6 +104,7 @@ void eliminarLineaEnPos(Linea &texto, Posicion pos)
 	}
 	else
 	{
+		//se busca la linea anterior a la que se borra y se la enlaza con la que sigue a la borrada
 		anterior = obtenerLinea(texto, pos - 1);
 		aBorrar = anterior->siguiente;
 		anterior->siguiente = aBorrar->siguiente;
@@ -100,25 +112,9 @@ void eliminarLineaEnPos(Linea &texto, Posicion pos)
 	liberarLinea(aBorrar);
 }
 
-void propagarExceso(Linea linea)
-{
-	Palabra sobrante = NULL;
-
-	//mientras la linea tenga mas palabras que el maximo, la ultima pasa al inicio de la siguiente
-	while (cantidadPalabras(linea->palabras) > MAX_CANT_PALABRAS_X_LINEA)
-	{
-		sobrante = extraerUltimaPalabra(linea->palabras);
-		if (linea->siguiente == NULL)
-		{
-			linea->siguiente = crearLinea();   //era la ultima linea del texto: se agrega una nueva al final
-		}
-		linea = linea->siguiente;
-		insertarPalabraEnPos(linea->palabras, sobrante, 1);
-	}
-}
-
 void liberarLinea(Linea &linea)
 {
+	//primero se liberan las palabras de la linea y despues el nodo de la linea
 	liberarPalabras(linea->palabras);
 	delete linea;
 	linea = NULL;
@@ -128,8 +124,10 @@ void liberarTexto(Linea &texto)
 {
 	Linea aBorrar = NULL;
 
+	//libera las lineas de a una hasta vaciar el texto
 	while (texto != NULL)
 	{
+		//se avanza antes de liberar para no perder el resto del texto
 		aBorrar = texto;
 		texto = texto->siguiente;
 		liberarLinea(aBorrar);
@@ -138,6 +136,7 @@ void liberarTexto(Linea &texto)
 
 void mostrarLinea(Linea linea, Posicion numero)
 {
+	//una linea vacia muestra solo su numero
 	cout << numero << ": ";
 	mostrarPalabras(linea->palabras);
 	cout << endl;
@@ -147,6 +146,7 @@ void mostrarTexto(Linea texto)
 {
 	Posicion numero = 1;
 
+	//recorre las lineas numerandolas desde 1
 	while (texto != NULL)
 	{
 		mostrarLinea(texto, numero);

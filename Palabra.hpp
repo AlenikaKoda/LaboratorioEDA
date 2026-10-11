@@ -4,14 +4,13 @@
 
 struct nodoPalabra
 {
-	Cadena texto;   //la palabra (copia en memoria dinamica)
-	nodoPalabra *siguiente;
+	Cadena texto;   //la palabra, copia en memoria dinamica
+	nodoPalabra *siguiente;   //proxima palabra de la linea
 };
 
 typedef nodoPalabra *Palabra;   //tipo para declarar listas de palabras
 
 Palabra crearPalabra(Cadena);   //devuelve el nodo a insertar (guarda una copia de la cadena)
-bool esPalabraValida(Cadena);   //devuelve true si la cadena no es vacia y no tiene espacios en blanco
 bool listaPalabrasVacia(Palabra);   //devuelve true si la lista esta vacia
 unsigned int cantidadPalabras(Palabra);   //devuelve la cantidad de palabras de la lista
 void insertarPalabraEnPos(Palabra &, Palabra, Posicion);   //inserta el nodo en la posicion indicada (1 <= pos <= cantidad + 1)

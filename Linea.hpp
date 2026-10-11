@@ -5,8 +5,8 @@
 
 struct nodoLinea
 {
-	Palabra palabras;   //lista de palabras de la linea
-	nodoLinea *siguiente;
+	Palabra palabras;   //lista de palabras de la linea (NULL si esta vacia)
+	nodoLinea *siguiente;   //proxima linea del texto
 };
 
 typedef nodoLinea *Linea;   //tipo para declarar el texto (lista de lineas)
@@ -18,7 +18,6 @@ Linea obtenerLinea(Linea, Posicion);   //devuelve la linea de la posicion indica
 void insertarLineaFinal(Linea &, Linea);   //inserta la linea al final del texto
 void insertarLineaEnPos(Linea &, Linea, Posicion);   //inserta la linea en la posicion indicada (1 <= pos <= cantidad + 1)
 void eliminarLineaEnPos(Linea &, Posicion);   //elimina la linea de la posicion indicada (1 <= pos <= cantidad)
-void propagarExceso(Linea);   //si la linea supera el maximo de palabras, pasa el exceso a las lineas siguientes
 void liberarLinea(Linea &);   //libera la memoria de una linea (y de sus palabras)
 void liberarTexto(Linea &);   //libera la memoria de todas las lineas
 void mostrarLinea(Linea, Posicion);   //muestra una linea con su numero
