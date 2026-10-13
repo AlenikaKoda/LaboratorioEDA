@@ -87,14 +87,11 @@ TipoRetorno InsertarPalabra(Linea &texto, Posicion posicionLinea, Posicion posic
 	Palabra sobrante = NULL;
 
 	linea = obtenerLinea(texto, posicionLinea);
-	//se verifica que la linea exista y que 1 <= posicionPalabra <= cantidad de palabras + 1
-	if (linea == NULL)
+	//es ERROR si la linea no existe o si la posicion de la palabra no cumple 1 <= posicionPalabra <= cantidad de palabras + 1
+	//la linea se verifica primero para no usarla cuando es NULL
+	if (linea == NULL || posicionPalabra < 1 || posicionPalabra > cantidadPalabras(linea->palabras) + 1)
 	{
-		ret = ERROR;   //la linea no existe en el texto
-	}
-	else if (posicionPalabra < 1 || posicionPalabra > cantidadPalabras(linea->palabras) + 1)
-	{
-		ret = ERROR;   //la posicion de la palabra no es valida
+		ret = ERROR;
 	}
 	else
 	{
@@ -127,14 +124,11 @@ TipoRetorno BorrarPalabra(Linea &texto, Posicion posicionLinea, Posicion posicio
 	Linea linea = NULL;
 
 	linea = obtenerLinea(texto, posicionLinea);
-	//se verifica que la linea exista y que la palabra exista en la linea
-	if (linea == NULL)
+	//es ERROR si la linea no existe o si la palabra no existe en la linea, o sea 1 <= posicionPalabra <= cantidad de palabras
+	//la linea se verifica primero para no usarla cuando es NULL
+	if (linea == NULL || posicionPalabra < 1 || posicionPalabra > cantidadPalabras(linea->palabras))
 	{
-		ret = ERROR;   //la linea no existe en el texto
-	}
-	else if (posicionPalabra < 1 || posicionPalabra > cantidadPalabras(linea->palabras))
-	{
-		ret = ERROR;   //la palabra no existe en la linea
+		ret = ERROR;
 	}
 	else
 	{

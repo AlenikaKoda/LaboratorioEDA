@@ -1,7 +1,7 @@
 #ifndef TIPOS_H
 #define TIPOS_H
 
-#define MAX_CANT_PALABRAS_X_LINEA 3   //cantidad maxima de palabras por linea, los ejemplos de la letra suponen que vale 3
+#define MAX_CANT_PALABRAS_X_LINEA 5   //cantidad maxima de palabras por linea, los ejemplos de la letra suponen que vale 5
 
 typedef char *Cadena;   //tipo para las palabras, cadenas terminadas en '\0' en memoria dinamica
 
@@ -15,5 +15,4 @@ typedef unsigned int Posicion;   //posicion de una linea o de una palabra, la pr
 
 unsigned int largoCadena(Cadena);   //devuelve la cantidad de caracteres de la cadena (sin contar el '\0')
 bool cadenasIguales(Cadena, Cadena);   //compara dos cadenas sin distinguir mayusculas de minusculas
-bool cadenaAPosicion(Cadena, Posicion &);   //convierte una cadena de digitos en una posicion, devuelve false si no es un numero valido
 #endif

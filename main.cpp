@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "Tipos.hpp"
 #include "Linea.hpp"
@@ -14,18 +15,18 @@ using namespace std;
 //si la linea no entra en el buffer avisa Linea demasiado larga y la devuelve vacia para que la linea siguiente se lea bien
 bool leerEntrada(Cadena entrada)
 {
-	int caracter = getchar();   //es int porque EOF no es un caracter
+	char caracter = getchar();
 	unsigned int largo = 0;
-	bool hayEntrada = (caracter != EOF);
+	bool hayEntrada = caracter != '\0';
 	bool demasiadoLarga = false;
 
-	//lee hasta el enter o hasta el fin de la entrada
-	while (caracter != '\n' && caracter != EOF)
+	//lee hasta el enter
+	while (caracter != '\n')
 	{
 		//si no hay lugar en el buffer el caracter se descarta pero se sigue leyendo hasta el enter
 		if (largo < MAX_LARGO_ENTRADA - 1)
 		{
-			entrada[largo] = (char) caracter;
+			entrada[largo] = caracter;
 			largo++;
 		}
 		else
@@ -45,8 +46,9 @@ bool leerEntrada(Cadena entrada)
 }
 
 //interpreta una linea de entrada con el comando y sus argumentos separados por comas o blancos y ejecuta la operacion
+//las posiciones se convierten con atoi, un argumento que no es un numero vale 0 y la operacion devuelve ERROR
 //si la operacion devuelve ERROR o NO_IMPLEMENTADA lo muestra, con OK no muestra nada
-//si el comando no existe o sus argumentos no son los esperados muestra Comando invalido
+//si el comando no existe o no trae los argumentos esperados muestra Comando invalido
 //las lineas en blanco se ignoran
 //devuelve false cuando el comando es Salir y true en cualquier otro caso
 bool ejecutarComando(Linea &texto, Cadena entrada)
@@ -56,56 +58,70 @@ bool ejecutarComando(Linea &texto, Cadena entrada)
 	Cadena arg2 = strtok(NULL, SEPARADORES);
 	Cadena arg3 = strtok(NULL, SEPARADORES);
 	Cadena arg4 = strtok(NULL, SEPARADORES);   //solo sirve para detectar que sobran argumentos
-	Posicion pos1 = 0;
-	Posicion pos2 = 0;
 	TipoRetorno ret = OK;
+	bool valido = false;   //pasa a true cuando el comando existe y trae los argumentos esperados
 	bool seguir = true;
 
 	//las lineas en blanco no tienen comando y se ignoran
 	if (comando != NULL)
 	{
-		//cada condicion verifica el nombre del comando y que sus argumentos sean los esperados
-		if (cadenasIguales(comando, "InsertarLinea") && arg1 == NULL)
+		//InsertarLinea no lleva argumentos
+		if (cadenasIguales(comando, (Cadena)"InsertarLinea") && arg1 == NULL)
 		{
 			ret = insertarLinea(texto, crearLinea());
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "InsertarLineaEnPosicion") && cadenaAPosicion(arg1, pos1) && arg2 == NULL)
+		//InsertarLineaEnPosicion lleva la posicion de la linea
+		if (cadenasIguales(comando, (Cadena)"InsertarLineaEnPosicion") && arg1 != NULL && arg2 == NULL)
 		{
-			ret = InsertarLineaEnPosicion(texto, pos1);
+			ret = InsertarLineaEnPosicion(texto, atoi(arg1));
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "BorrarLinea") && cadenaAPosicion(arg1, pos1) && arg2 == NULL)
+		//BorrarLinea lleva la posicion de la linea
+		if (cadenasIguales(comando, (Cadena)"BorrarLinea") && arg1 != NULL && arg2 == NULL)
 		{
-			ret = BorrarLinea(texto, pos1);
+			ret = BorrarLinea(texto, atoi(arg1));
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "BorrarTodo") && arg1 == NULL)
+		//BorrarTodo no lleva argumentos
+		if (cadenasIguales(comando, (Cadena)"BorrarTodo") && arg1 == NULL)
 		{
 			ret = BorrarTodo(texto);
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "ImprimirTexto") && arg1 == NULL)
+		//ImprimirTexto no lleva argumentos
+		if (cadenasIguales(comando, (Cadena)"ImprimirTexto") && arg1 == NULL)
 		{
 			ret = ImprimirTexto(texto);
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "InsertarPalabra") && cadenaAPosicion(arg1, pos1)
-				&& cadenaAPosicion(arg2, pos2) && arg3 != NULL && arg4 == NULL)
+		//InsertarPalabra lleva la posicion de la linea, la posicion de la palabra y la palabra
+		if (cadenasIguales(comando, (Cadena)"InsertarPalabra") && arg1 != NULL && arg2 != NULL && arg3 != NULL && arg4 == NULL)
 		{
-			ret = InsertarPalabra(texto, pos1, pos2, arg3);
+			ret = InsertarPalabra(texto, atoi(arg1), atoi(arg2), arg3);
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "BorrarPalabra") && cadenaAPosicion(arg1, pos1)
-				&& cadenaAPosicion(arg2, pos2) && arg3 == NULL)
+		//BorrarPalabra lleva la posicion de la linea y la posicion de la palabra
+		if (cadenasIguales(comando, (Cadena)"BorrarPalabra") && arg1 != NULL && arg2 != NULL && arg3 == NULL)
 		{
-			ret = BorrarPalabra(texto, pos1, pos2);
+			ret = BorrarPalabra(texto, atoi(arg1), atoi(arg2));
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "ImprimirLinea") && cadenaAPosicion(arg1, pos1) && arg2 == NULL)
+		//ImprimirLinea lleva la posicion de la linea
+		if (cadenasIguales(comando, (Cadena)"ImprimirLinea") && arg1 != NULL && arg2 == NULL)
 		{
-			ret = ImprimirLinea(texto, pos1);
+			ret = ImprimirLinea(texto, atoi(arg1));
+			valido = true;
 		}
-		else if (cadenasIguales(comando, "Salir") && arg1 == NULL)
+		//Salir no lleva argumentos y corta la ejecucion
+		if (cadenasIguales(comando, (Cadena)"Salir") && arg1 == NULL)
 		{
 			seguir = false;
+			valido = true;
 		}
-		else
+		//si ningun comando coincidio con esos argumentos se avisa
+		if (!valido)
 		{
-			//no es un comando conocido o sus argumentos no son los esperados
 			cout << "Comando invalido" << endl;
 		}
 		//si la operacion fallo se muestra el resultado, con OK no se muestra nada
@@ -113,7 +129,7 @@ bool ejecutarComando(Linea &texto, Cadena entrada)
 		{
 			cout << "ERROR" << endl;
 		}
-		else if (ret == NO_IMPLEMENTADA)
+		if (ret == NO_IMPLEMENTADA)
 		{
 			cout << "NO_IMPLEMENTADA" << endl;
 		}
