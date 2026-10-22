@@ -2,6 +2,7 @@
 #define TIPOS_H
 
 #define MAX_CANT_PALABRAS_X_LINEA 5   //cantidad maxima de palabras por linea, los ejemplos de la letra suponen que vale 5
+#define MAX_CANT_ULTIMAS_PALABRAS 3   //cantidad maxima de palabras guardadas en el historial, los ejemplos de la letra suponen que vale 3
 
 typedef char *Cadena;   //tipo para las palabras, cadenas terminadas en '\0' en memoria dinamica
 

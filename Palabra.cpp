@@ -31,6 +31,7 @@ unsigned int cantidadPalabras(Palabra palabras)
 	while (palabras != NULL)
 	{
 		cantidad++;
+		palabras->texto;
 		palabras = palabras->siguiente;
 	}
 	return cantidad;

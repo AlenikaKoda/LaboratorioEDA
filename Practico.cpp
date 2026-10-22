@@ -157,3 +157,21 @@ TipoRetorno ImprimirLinea(Linea texto, Posicion posicionLinea)
 	}
 	return ret;
 }
+
+//operacion 16 de la letra: muestra las ultimas palabras ingresadas, siendo
+//el maximo de palabras recordadas el numero indicado por la constante
+//"MAX_CANT_ULTIMAS_PALABRAS"
+//nunca falla, si no hay palabras se le muestra un mensaje al usuario
+TipoRetorno ImprimirUltimasPalabras(Palabra historial)
+{
+	//si no se han ingresado palabras, se muestra un mensaje
+	if (listaPalabrasVacia(historial))
+	{
+		cout << "Aún no se han ingresado palabras" << endl;
+	}
+	else
+	{
+		mostrarHistorial(historial);
+	}
+	return OK;
+}
