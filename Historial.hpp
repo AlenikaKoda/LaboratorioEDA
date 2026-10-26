@@ -3,17 +3,15 @@
 
 #include "Palabra.hpp"
 
-typedef nodoPalabra tipoNodo;
-typedef Palabra pNodo;
 struct ColaPalabras {
-	pNodo frente;
-	pNodo fondo;
+	Palabra frente;
+	Palabra fondo;
 };
-pNodo primero(ColaPalabras);
-void encolar(ColaPalabras&, pNodo);
-pNodo desencolar(ColaPalabras&);
+Palabra primero(ColaPalabras);
+void encolar(ColaPalabras&, Palabra);
+Palabra desencolar(ColaPalabras&);
 void verHistorial(ColaPalabras);
-pNodo crearNodo(Cadena);
+Palabra crearNodo(Cadena);
 bool historialVacio(ColaPalabras);
 
 #define MAX_HISTORIAL 3

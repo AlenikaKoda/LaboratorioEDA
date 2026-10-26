@@ -3,9 +3,9 @@
 
 using namespace std;
 
-pNodo crearNodo(Cadena val)
+Palabra crearNodo(Cadena val)
 {
-	pNodo aux = new tipoNodo;
+	Palabra aux = new nodoPalabra;
 	if(aux)
 	{
 		aux->texto = copiarCadena(val);
@@ -23,12 +23,12 @@ bool colaVacia(ColaPalabras c)
 	return c.frente == NULL;
 }
 
-pNodo primero (ColaPalabras cola)
+Palabra primero (ColaPalabras cola)
 {  
 	return cola.frente; 
 }
 
-void encolar(ColaPalabras &cola, pNodo q)
+void encolar(ColaPalabras &cola, Palabra q)
 {  
 	if (!cola.frente)
 	{
@@ -42,13 +42,13 @@ void encolar(ColaPalabras &cola, pNodo q)
 	}
 }
 
-pNodo desencolar(ColaPalabras& cola)
+Palabra desencolar(ColaPalabras& cola)
 {
 	if(!cola.frente)
 	{
 		return NULL;	
 	}
-	pNodo aux = new tipoNodo, eliminar;
+	Palabra aux = new nodoPalabra, eliminar;
 	aux->texto = cola.frente->texto;
 	aux->siguiente = NULL;
 	eliminar = cola.frente; 
