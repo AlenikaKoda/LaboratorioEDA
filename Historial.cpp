@@ -91,5 +91,11 @@ void agregarAHistorial(Historial& historial, Cadena textoPalabra)
 
 void mostrarHistorial(Historial historial)
 {
+	if(colaVacia(historial.cola))
+	{
+		cout << "El historial esta vacio." << endl;
+		return;
+	}
+	
 	verCola(historial.cola);
 }
