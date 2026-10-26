@@ -10,9 +10,9 @@ struct ColaPalabras {
 Palabra primero(ColaPalabras);
 void encolar(ColaPalabras&, Palabra);
 Palabra desencolar(ColaPalabras&);
-void verHistorial(ColaPalabras);
+void verCola(ColaPalabras);
 Palabra crearNodo(Cadena);
-bool historialVacio(ColaPalabras);
+bool colaVacia(ColaPalabras);
 
 #define MAX_HISTORIAL 3
 
