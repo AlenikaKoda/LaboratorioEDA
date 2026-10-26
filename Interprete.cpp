@@ -188,6 +188,12 @@ bool ejecutarComando(Linea &texto, Historial& historial, Cadena entrada)
 			}
 			valido = true;
 		}
+		//No lleva argumentos
+		if (cadenasIguales(comando, (Cadena)"ImprimirUltimasPalabras") && arg1 == NULL)
+		{
+			ret = ImprimirUltimasPalabras(historial);
+			valido = true;
+		}
 		//Salir no lleva argumentos y corta la ejecucion
 		if (cadenasIguales(comando, (Cadena)"Salir") && arg1 == NULL)
 		{

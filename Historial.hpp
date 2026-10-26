@@ -14,7 +14,7 @@ void verCola(ColaPalabras);
 Palabra crearNodo(Cadena);
 bool colaVacia(ColaPalabras);
 
-#define MAX_HISTORIAL 3
+#define MAX_CANT_ULTIMAS_PALABRAS 3
 
 struct Historial
 {

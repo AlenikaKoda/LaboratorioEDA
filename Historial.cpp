@@ -14,7 +14,7 @@ Palabra crearNodo(Cadena val)
 	}
 	else
 	{
-		return NULL;	
+		return NULL;
 	}
 }
 
@@ -68,7 +68,7 @@ void verCola(ColaPalabras c)
 	{
 		while(c.frente)
 		{
-			cout << c.frente->texto << "->";
+			cout << c.frente->texto << endl;
 			c.frente = c.frente->siguiente;		
 		}	
 	}
@@ -80,13 +80,11 @@ void agregarAHistorial(Historial& historial, Cadena textoPalabra)
 	encolar(historial.cola, crearPalabra(textoPalabra));
 	historial.longitud++;
 	
-	if(historial.longitud > MAX_HISTORIAL)
+	if(historial.longitud > MAX_CANT_ULTIMAS_PALABRAS)
 	{
 		desencolar(historial.cola);
 		historial.longitud--;
 	}
-	
-	mostrarHistorial(historial);
 }
 
 void mostrarHistorial(Historial historial)
