@@ -97,7 +97,7 @@ Cadena usoComando(Cadena comando, int &esperados)
 //si el comando no existe muestra Comando invalido, si existe pero le faltan o le sobran argumentos lo avisa y muestra como se usa
 //las lineas en blanco se ignoran
 //devuelve false cuando el comando es Salir y true en cualquier otro caso
-bool ejecutarComando(Linea &texto, Cadena entrada)
+bool ejecutarComando(Linea &texto, Historial& historial, Cadena entrada)
 {
 	Cadena comando = strtok(entrada, SEPARADORES);   //el comando es el primer token de la linea
 	Cadena arg1 = strtok(NULL, SEPARADORES);   //los argumentos son los tokens que le siguen
@@ -161,6 +161,10 @@ bool ejecutarComando(Linea &texto, Cadena entrada)
 			{
 				//como la operacion no modifica el texto cuando falla, se puede ver si lo que no existe es la linea
 				motivo = (obtenerLinea(texto, atoi(arg1)) == NULL) ? (Cadena)"La linea no existe" : (Cadena)"La posicion de la palabra no es valida, debe estar entre 1 y la cantidad de palabras de la linea + 1";
+			}
+			else
+			{
+				agregarAHistorial(historial, arg3);
 			}
 			valido = true;
 		}

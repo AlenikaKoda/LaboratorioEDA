@@ -36,3 +36,12 @@ bool cadenasIguales(Cadena cadena1, Cadena cadena2)
 	//son iguales solo si las dos cadenas terminan en la misma posicion
 	return (tolower((unsigned char) cadena1[i]) == tolower((unsigned char) cadena2[i]));
 }
+
+Cadena copiarCadena(Cadena original)
+{
+	if(!original) return NULL;
+	
+	Cadena copia = new char[strlen(original) + 1]; //+1 para caracter nulo (terminador)
+	strcpy(copia, original);
+	return copia;
+}
