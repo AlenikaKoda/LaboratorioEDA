@@ -45,3 +45,35 @@ Cadena copiarCadena(Cadena original)
 	strcpy(copia, original);
 	return copia;
 }
+
+// Simulacion del operator < para cadenas, se basa en la tabla ascii
+bool textoMenor(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (a[i] < b[i]) return true;
+		if (a[i] > b[i]) return false;
+	}
+	
+	return lenA < lenB;
+}
+
+// Simulacion del operator > para cadenas, se basa en la tabla ascii
+bool textoMayor(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (a[i] > b[i]) return true;
+		if (a[i] < b[i]) return false;
+	}
+	
+	return lenA > lenB;
+}
