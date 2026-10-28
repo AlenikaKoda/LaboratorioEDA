@@ -97,7 +97,7 @@ Cadena usoComando(Cadena comando, int &esperados)
 //si el comando no existe muestra Comando invalido, si existe pero le faltan o le sobran argumentos lo avisa y muestra como se usa
 //las lineas en blanco se ignoran
 //devuelve false cuando el comando es Salir y true en cualquier otro caso
-bool ejecutarComando(Linea &texto, Historial& historial, Cadena entrada)
+bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionario, Cadena entrada)
 {
 	Cadena comando = strtok(entrada, SEPARADORES);   //el comando es el primer token de la linea
 	Cadena arg1 = strtok(NULL, SEPARADORES);   //los argumentos son los tokens que le siguen
