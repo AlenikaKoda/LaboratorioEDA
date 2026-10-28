@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 // Prueba para el TAD Diccionario, eliminar para la entrega
-#if 0
+#if 1
 #define I(X) insertar(d, crearNodoDiccionario((Cadena)X))
 	
 	Diccionario d = NULL;

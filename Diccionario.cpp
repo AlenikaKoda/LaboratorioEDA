@@ -95,6 +95,7 @@ void borrar(Diccionario &arbol, Cadena x)
 		{
 			Diccionario p = arbol;
 			arbol = unirABB(arbol->izq, arbol->der);
+			delete[] p->valor; //eliminar cadena en memoria dinamica
 			delete p;
 		}
 	}
