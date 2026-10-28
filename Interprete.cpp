@@ -51,6 +51,10 @@ Cadena usoComando(Cadena comando, int &esperados)
 	{
 		uso = (Cadena)"InsertarLinea";
 	}
+	if (cadenasIguales(comando, (Cadena)"ImprimirUltimasPalabras"))
+	{
+		uso = (Cadena)"ImprimirUltimasPalabras";
+	}
 	if (cadenasIguales(comando, (Cadena)"InsertarLineaEnPosicion"))
 	{
 		uso = (Cadena)"InsertarLineaEnPosicion <posicionLinea>";
