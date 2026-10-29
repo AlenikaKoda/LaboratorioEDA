@@ -15,6 +15,7 @@ typedef unsigned int Posicion;   //posicion de una linea o de una palabra, la pr
 
 unsigned int largoCadena(Cadena);   //devuelve la cantidad de caracteres de la cadena (sin contar el '\0')
 bool cadenasIguales(Cadena, Cadena);   //compara dos cadenas sin distinguir mayusculas de minusculas
+bool cadenasIgualesMayusMinus(Cadena, Cadena);	//compara dos cadenas respetando mayusculas y minusculas
 Cadena copiarCadena(Cadena original); // crea una copia de una cadena en memoria dinamica, debe ser liberada con delete[]
 bool textoMenor(Cadena a, Cadena b);	// Simulacion del operator < para cadenas, se basa en la tabla ascii
 bool textoMayor(Cadena a, Cadena b); // Simulacion del operator > para cadenas, se basa en la tabla ascii

@@ -8,6 +8,7 @@ TipoRetorno insertarLinea(Linea &, Linea);   //(1) inserta la linea indicada (va
 TipoRetorno InsertarLineaEnPosicion(Linea &, Posicion);   //(2) inserta una linea vacia en la posicion indicada
 TipoRetorno BorrarLinea(Linea &, Posicion);   //(3) borra la linea de la posicion indicada
 TipoRetorno BorrarTodo(Linea &);   //(4) borra todas las lineas del texto
+TipoRetorno BorrarOcurrenciasPalabraEnTexto(Linea, Cadena); //(5) borra todas las ocurrencias de una palabra en el texto
 TipoRetorno ImprimirTexto(Linea);   //(6) imprime el texto por pantalla
 TipoRetorno InsertarPalabra(Linea &, Posicion, Posicion, Cadena);   //(8) inserta una palabra en una linea
 TipoRetorno BorrarPalabra(Linea &, Posicion, Posicion);   //(9) borra la palabra de la posicion indicada de una linea
