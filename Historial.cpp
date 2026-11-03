@@ -1,53 +1,99 @@
 #include <iostream>
 #include "Historial.hpp"
+
 using namespace std;
 
-//agrega un nuevo nodo de palabra al inicio de la lista del historial
-//si la cantidad de palabras guardadas supera el maximo indicada por la 
-//constante MAX_CANT_ULTIMAS_PALABRAS, se elimina el ultimo nodo de la lista 
-//(la palabra mas antigua)
-void agregarPalabraHistorial(Palabra &his, Palabra nueva)
+Palabra crearNodo(Cadena val)
 {
-	//punteros auxiliares para borrar el ultimo nodo
-	Palabra borrar = NULL;
-	Palabra aux = NULL;
-	
-	//el nuevo nodo apunta a lo que sea que este apuntando la cabeza de la lista
-	//actualmente, ya sea NULL u otro nodo.
-	nueva->siguiente = his;
-	his = nueva; //el nuevo nodo pasa a ser la cabeza
-	
-	//si se supero el limite de palabras guardadas, se elimina la mas antigua
-	if (cantidadPalabras(his) > MAX_CANT_ULTIMAS_PALABRAS)
+	Palabra aux = new nodoPalabra;
+	if(aux)
 	{
-		aux = his;
-		
-		//se mueve el puntero auxiliar hasta el ante-ultimo nodo
-		while (aux->siguiente->siguiente != NULL)
+		aux->texto = copiarCadena(val);
+		aux->siguiente = NULL;
+		return aux;	
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+bool colaVacia(ColaPalabras c)
+{
+	return c.frente == NULL;
+}
+
+Palabra primero (ColaPalabras cola)
+{  
+	return cola.frente; 
+}
+
+void encolar(ColaPalabras &cola, Palabra q)
+{  
+	if (!cola.frente)
+	{
+		cola.frente=q;
+		cola.fondo=q;
+	}
+	else 
+	{
+		cola.fondo->siguiente=q; 
+		cola.fondo=q;
+	}
+}
+
+Palabra desencolar(ColaPalabras& cola)
+{
+	if(!cola.frente)
+	{
+		return NULL;	
+	}
+	Palabra aux = new nodoPalabra, eliminar;
+	aux->texto = cola.frente->texto;
+	aux->siguiente = NULL;
+	eliminar = cola.frente; 
+	cola.frente = cola.frente->siguiente;
+	delete[] eliminar->texto;
+	delete eliminar;  
+	return aux;
+}
+
+void verCola(ColaPalabras c)
+{
+	if(colaVacia(c))
+	{
+		cout<<"La cola está vacío";	
+	}
+	else
+	{
+		while(c.frente)
 		{
-			aux = aux->siguiente;
-		}
-		
-		borrar = aux->siguiente; //guarda la direccion del ultimo nodo
-		aux->siguiente = NULL; //el ante-ultimo nodo pasa a apuntar a NULL
-		
-		liberarPalabra(borrar); //se elimina en ultimo nodo
+			cout << c.frente->texto << endl;
+			c.frente = c.frente->siguiente;		
+		}	
 	}
 }
 
-//Muestra las palabras guardadas en el historial
-void mostrarHistorial(Palabra his)
+// Se agrega una copia de la palabra al historial
+void agregarAHistorial(Historial& historial, Cadena textoPalabra)
 {
-	while (his != NULL)
+	encolar(historial.cola, crearPalabra(textoPalabra));
+	historial.longitud++;
+	
+	if(historial.longitud > MAX_CANT_ULTIMAS_PALABRAS)
 	{
-		cout << his->texto << endl;
-		his = his->siguiente;
+		desencolar(historial.cola);
+		historial.longitud--;
 	}
 }
 
-//libera la memoria del historial
-//nunca da error, si el historial esta vacio se deja asi
-void BorrarHistorial(Palabra &his)
+void mostrarHistorial(Historial historial)
 {
-	liberarPalabras(his);
+	if(colaVacia(historial.cola))
+	{
+		cout << "El historial esta vacio." << endl;
+		return;
+	}
+	
+	verCola(historial.cola);
 }

@@ -59,6 +59,14 @@ TipoRetorno BorrarTodo(Linea &texto)
 	return OK;
 }
 
+//operacion 5 de la letra: borra todas las ocurrencias de una palabra en el texto
+//nunca da error, si la palabra no aparece en el texto, no pasa nada
+TipoRetorno BorrarOcurrenciasPalabraEnTexto(Linea texto, Cadena palabra)
+{
+	eliminarOcurrenciasPalabra(texto, palabra);
+	return OK;
+}
+
 //operacion 6 de la letra: muestra todas las lineas del texto con su numero y sus palabras
 //si el texto no tiene lineas muestra Texto vacio
 TipoRetorno ImprimirTexto(Linea texto)
@@ -162,16 +170,59 @@ TipoRetorno ImprimirLinea(Linea texto, Posicion posicionLinea)
 //el maximo de palabras recordadas el numero indicado por la constante
 //"MAX_CANT_ULTIMAS_PALABRAS"
 //nunca falla, si no hay palabras se le muestra un mensaje al usuario
-TipoRetorno ImprimirUltimasPalabras(Palabra historial)
+TipoRetorno ImprimirUltimasPalabras(Historial historial)
 {
-	//si no se han ingresado palabras, se muestra un mensaje
-	if (listaPalabrasVacia(historial))
+	mostrarHistorial(historial);
+	return OK;
+}
+
+TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
+{
+	// la cadena es copiada por crearNodo, no es necesario
+	// crear una copia aqui.
+	Diccionario nodo = crearNodoDiccionario(cadena);
+	bool insertado = insertar(diccionario, nodo);
+	
+	if(!insertado)
 	{
-		cout << "Aún no se han ingresado palabras" << endl;
+		destruirNodo(nodo);
+		return ERROR;
 	}
-	else
+	
+	return OK;
+}
+
+TipoRetorno ImprimirTextoIncorrecto(Diccionario diccionario, Linea linea)
+{
+	Palabra palabra;
+	int numLinea = 1;
+	
+	if(linea == NULL)
 	{
-		mostrarHistorial(historial);
+		cout << "Texto vacio" << endl;
+		return OK;
 	}
+	
+	while(linea)
+	{
+		cout << numLinea << ": ";
+		
+		palabra = linea->palabras;
+		while(palabra)
+		{
+			if(!existe(diccionario, palabra->texto))
+			{
+				cout << palabra->texto << " ";
+			}
+			
+			palabra = palabra->siguiente;
+		}
+		
+		numLinea++;
+		cout << endl;
+		
+		linea = linea->siguiente;
+	}
+	
 	return OK;
 }

@@ -36,3 +36,92 @@ bool cadenasIguales(Cadena cadena1, Cadena cadena2)
 	//son iguales solo si las dos cadenas terminan en la misma posicion
 	return (tolower((unsigned char) cadena1[i]) == tolower((unsigned char) cadena2[i]));
 }
+
+//compara 2 cadenas de caracteres respetando las minusculas y mayusculas
+//las dos cadenas tienen que ser distintas de NULL y terminar en '\0'
+//devuelve true si tienen los mismos caracteres y el mismo largo
+bool cadenasIgualesMayusMinus(Cadena cadena1, Cadena cadena2)
+{
+	unsigned int i = 0;
+	
+	//avanza mientras no termine la primera cadena y los caracteres coincidan
+	while (cadena1[i] != '\0' && cadena1[i] == cadena2[i])
+	{
+		i++;
+	}
+	//son iguales solo si las dos cadenas terminan en la misma posicion
+	return (cadena1[i] == cadena2[i]);
+}
+
+Cadena copiarCadena(Cadena original)
+{
+	if(!original) return NULL;
+	
+	Cadena copia = new char[strlen(original) + 1]; //+1 para caracter nulo (terminador)
+	strcpy(copia, original);
+	return copia;
+}
+
+// Simulacion del operator < para cadenas, se basa en la tabla ascii
+bool textoMenor(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (a[i] < b[i]) return true;
+		if (a[i] > b[i]) return false;
+	}
+	
+	return lenA < lenB;
+}
+
+// Simulacion del operator > para cadenas, se basa en la tabla ascii
+bool textoMayor(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (a[i] > b[i]) return true;
+		if (a[i] < b[i]) return false;
+	}
+	
+	return lenA > lenB;
+}
+
+// Simulacion del operator < para cadenas, se basa en la tabla ascii, Insensible
+bool textoMenorInsensible(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (tolower(a[i]) < tolower(b[i])) return true;
+		if (tolower(a[i]) > tolower(b[i])) return false;
+	}
+	
+	return lenA < lenB;
+}
+
+// Simulacion del operator > para cadenas, se basa en la tabla ascii, Insensible
+bool textoMayorInsensible(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (tolower(a[i]) > tolower(b[i])) return true;
+		if (tolower(a[i]) < tolower(b[i])) return false;
+	}
+	
+	return lenA > lenB;
+}
