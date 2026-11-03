@@ -18,4 +18,6 @@ bool cadenasIguales(Cadena, Cadena);   //compara dos cadenas sin distinguir mayu
 Cadena copiarCadena(Cadena original); // crea una copia de una cadena en memoria dinamica, debe ser liberada con delete[]
 bool textoMenor(Cadena a, Cadena b);	// Simulacion del operator < para cadenas, se basa en la tabla ascii
 bool textoMayor(Cadena a, Cadena b); // Simulacion del operator > para cadenas, se basa en la tabla ascii
+bool textoMenorInsensible(Cadena a, Cadena b);	// Simulacion del operator < para cadenas, se basa en la tabla ascii, insensible
+bool textoMayorInsensible(Cadena a, Cadena b); // Simulacion del operator > para cadenas, se basa en la tabla ascii, insensible
 #endif

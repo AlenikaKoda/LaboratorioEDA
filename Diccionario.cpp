@@ -13,25 +13,29 @@ Diccionario crearNodoDiccionario(Cadena valor)
 }
 
 
-void insertar(Diccionario &arbol, Diccionario v)
+bool insertar(Diccionario &arbol, Diccionario v)
 {
 	if (arbol==NULL)
 	{
 		arbol = v;
-		return;
+		return true;
 	}
 	
+	if(cadenasIguales(arbol->valor, v->valor))
+	{
+		return false;
+	}
 	
 	if(textoMenor(v->valor, arbol->valor))
 	{
 		insertar(arbol->izq, v);
-		return;
 	}
-	
 	if(textoMayor(v->valor, arbol->valor))
 	{
 		insertar(arbol->der, v);
 	}
+	
+	return true;
 }
 
 
@@ -95,8 +99,7 @@ void borrar(Diccionario &arbol, Cadena x)
 		{
 			Diccionario p = arbol;
 			arbol = unirABB(arbol->izq, arbol->der);
-			delete[] p->valor; //eliminar cadena en memoria dinamica
-			delete p;
+			destruirNodo(p);
 		}
 	}
 }
@@ -116,4 +119,30 @@ Diccionario unirABB(Diccionario izq, Diccionario der)
 void mostrarNodo(Diccionario arbol)
 {
 	cout << arbol->valor << endl;
+}
+
+void destruirNodo(Diccionario& nodo)
+{
+	delete[] nodo->valor; //eliminar cadena en memoria dinamica
+	delete nodo;
+}
+
+bool existe(Diccionario& diccionario, Cadena valorObjetivo)
+{
+	if(!diccionario)
+	{
+		return false;
+	}
+	
+	if(textoMenorInsensible(diccionario->valor, valorObjetivo))
+	{
+		return existe(diccionario->der, valorObjetivo);
+	}
+	
+	if(textoMayorInsensible(diccionario->valor, valorObjetivo))
+	{
+		return existe(diccionario->izq, valorObjetivo);
+	}
+	
+	return true;
 }
