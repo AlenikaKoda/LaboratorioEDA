@@ -4,21 +4,25 @@
 
 struct nodoDiccionario
 {
-	Cadena valor;
+	Cadena cadena;
 	nodoDiccionario *izq;
 	nodoDiccionario *der;
 };
 typedef nodoDiccionario *Diccionario;
 
+// Estas operaciones son implementadas a nivel de TAD,
+// no siguen las reglas o reestricciones de la letra.
+// Esas restricciones se aplican en Practico.cpp y Practico.hpp
+
 Diccionario crearNodoDiccionario(Cadena);
-bool insertar (Diccionario &, Diccionario);
+bool insertarEnDiccionario (Diccionario &, Diccionario);
 void preOrden(Diccionario);
 void postOrden(Diccionario);
 void inOrden(Diccionario);
-void borrar(Diccionario &, Cadena);
-Diccionario unirABB(Diccionario, Diccionario);
+void borrarValorDiccionarioSensible(Diccionario &, Cadena);
+Diccionario unirDiccionario(Diccionario, Diccionario);
 
-void mostrarNodo(Diccionario);
-void destruirNodo(Diccionario&);
-bool existe(Diccionario&, Cadena);
+void mostrarNodoDiccionario(Diccionario);
+void destruirNodoDiccionario(Diccionario&);
+bool existeEnDiccionarioInsensible(Diccionario&, Cadena);
 #endif

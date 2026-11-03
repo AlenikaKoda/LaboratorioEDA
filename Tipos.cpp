@@ -23,7 +23,7 @@ unsigned int largoCadena(Cadena cadena)
 //compara dos cadenas caracter a caracter sin distinguir mayusculas de minusculas
 //las dos cadenas tienen que ser distintas de NULL y terminar en '\0'
 //devuelve true si tienen los mismos caracteres y el mismo largo
-bool cadenasIguales(Cadena cadena1, Cadena cadena2)
+bool cadenasIgualesInsensibles(Cadena cadena1, Cadena cadena2)
 {
 	unsigned int i = 0;
 
@@ -40,7 +40,7 @@ bool cadenasIguales(Cadena cadena1, Cadena cadena2)
 //compara 2 cadenas de caracteres respetando las minusculas y mayusculas
 //las dos cadenas tienen que ser distintas de NULL y terminar en '\0'
 //devuelve true si tienen los mismos caracteres y el mismo largo
-bool cadenasIgualesMayusMinus(Cadena cadena1, Cadena cadena2)
+bool cadenasIgualesSensible(Cadena cadena1, Cadena cadena2)
 {
 	unsigned int i = 0;
 	
@@ -63,7 +63,7 @@ Cadena copiarCadena(Cadena original)
 }
 
 // Simulacion del operator < para cadenas, se basa en la tabla ascii
-bool textoMenor(Cadena a, Cadena b)
+bool cadenaMenorSensible(Cadena a, Cadena b)
 {
 	int lenA = strlen(a);
 	int lenB = strlen(b);
@@ -79,7 +79,7 @@ bool textoMenor(Cadena a, Cadena b)
 }
 
 // Simulacion del operator > para cadenas, se basa en la tabla ascii
-bool textoMayor(Cadena a, Cadena b)
+bool cadenaMayorSensible(Cadena a, Cadena b)
 {
 	int lenA = strlen(a);
 	int lenB = strlen(b);

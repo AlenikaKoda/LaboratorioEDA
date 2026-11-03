@@ -14,11 +14,11 @@ typedef enum retorno TipoRetorno;
 typedef unsigned int Posicion;   //posicion de una linea o de una palabra, la primera es la 1
 
 unsigned int largoCadena(Cadena);   //devuelve la cantidad de caracteres de la cadena (sin contar el '\0')
-bool cadenasIguales(Cadena, Cadena);   //compara dos cadenas sin distinguir mayusculas de minusculas
-bool cadenasIgualesMayusMinus(Cadena, Cadena);	//compara dos cadenas respetando mayusculas y minusculas
+bool cadenasIgualesInsensibles(Cadena, Cadena);   //compara dos cadenas sin distinguir mayusculas de minusculas
+bool cadenasIgualesSensible(Cadena, Cadena);	//compara dos cadenas respetando mayusculas y minusculas
 Cadena copiarCadena(Cadena original); // crea una copia de una cadena en memoria dinamica, debe ser liberada con delete[]
-bool textoMenor(Cadena a, Cadena b);	// Simulacion del operator < para cadenas, se basa en la tabla ascii
-bool textoMayor(Cadena a, Cadena b); // Simulacion del operator > para cadenas, se basa en la tabla ascii
+bool cadenaMenorSensible(Cadena a, Cadena b);	// Simulacion del operator < para cadenas, se basa en la tabla ascii
+bool cadenaMayorSensible(Cadena a, Cadena b); // Simulacion del operator > para cadenas, se basa en la tabla ascii
 bool textoMenorInsensible(Cadena a, Cadena b);	// Simulacion del operator < para cadenas, se basa en la tabla ascii, insensible
 bool textoMayorInsensible(Cadena a, Cadena b); // Simulacion del operator > para cadenas, se basa en la tabla ascii, insensible
 #endif

@@ -181,11 +181,13 @@ TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
 	// la cadena es copiada por crearNodo, no es necesario
 	// crear una copia aqui.
 	Diccionario nodo = crearNodoDiccionario(cadena);
-	bool insertado = insertar(diccionario, nodo);
+	bool insertado = insertarEnDiccionario(diccionario, nodo);
 	
+	// Si no se pudo realizar la insersion, destruir el nodo para evitar fugas de memoria.
+	// 'insertado' es falso si el valor del nodo ya se encontraba en el diccionario.
 	if(!insertado)
 	{
-		destruirNodo(nodo);
+		destruirNodoDiccionario(nodo);
 		return ERROR;
 	}
 	
@@ -203,14 +205,19 @@ TipoRetorno ImprimirTextoIncorrecto(Diccionario diccionario, Linea linea)
 		return OK;
 	}
 	
+	// Recorre todas las lineas
 	while(linea)
 	{
+		// Imprime un marcador: 1:, 2:, 3:, etc...
 		cout << numLinea << ": ";
 		
+		// Auxiliar para las palabras a imprimir luego del marcador
 		palabra = linea->palabras;
+		// Recorre todas las palabras de esta linea
 		while(palabra)
 		{
-			if(!existe(diccionario, palabra->texto))
+			// Si esta palabra no existe en el diccionario, mostrarla
+			if(!existeEnDiccionarioInsensible(diccionario, palabra->texto))
 			{
 				cout << palabra->texto << " ";
 			}

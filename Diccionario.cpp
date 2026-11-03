@@ -3,145 +3,163 @@
 
 using namespace std;
 
+// Crear un 'nodoDiccionario' nuevo, la cadena 'valor'
+// es copiada en memoria dinamica para evitar compartimiento de memoria.
 Diccionario crearNodoDiccionario(Cadena valor)
 {
-	Diccionario nuevo=new nodoDiccionario;
-	nuevo->valor = copiarCadena(valor);
-	nuevo->izq=NULL;
-	nuevo->der=NULL;
+	Diccionario nuevo = new nodoDiccionario;
+	nuevo->cadena = copiarCadena(valor);
+	nuevo->izq = NULL;
+	nuevo->der = NULL;
 	return nuevo;
 }
 
-
-bool insertar(Diccionario &arbol, Diccionario v)
+// Inserta un nodo de diccionario llamado 'nodo' en 'diccionario'.
+// Importante que el nodo sea nuevo o que no sea referenciado por otro nodo.
+// Esta operacion es sensible ante mayusculas.
+// Retorna true si la insersion fue correcta, false el valor del nodo ya existia.
+bool insertarEnDiccionario(Diccionario &diccionario, Diccionario nodo)
 {
-	if (arbol==NULL)
+	if (diccionario == NULL)
 	{
-		arbol = v;
+		diccionario = nodo;
 		return true;
 	}
 	
-	if(cadenasIguales(arbol->valor, v->valor))
+	if(cadenasIgualesInsensibles(diccionario->cadena, nodo->cadena))
 	{
 		return false;
 	}
 	
-	if(textoMenor(v->valor, arbol->valor))
+	// Usamos la version 'Sensible' ya que se pide que las palabras
+	// en el diccionario se guarden respetando la entrada del usuario,
+	// por lo que 'hola' y 'hOla' son diferentes al GUARDARLAS del diccionario.
+	// sin embargo, al consultar el diccionario 'hola' y 'hOla' son iguales.
+
+	if(cadenaMenorSensible(nodo->cadena, diccionario->cadena))
 	{
-		insertar(arbol->izq, v);
+		insertarEnDiccionario(diccionario->izq, nodo);
 	}
-	if(textoMayor(v->valor, arbol->valor))
+	if(cadenaMayorSensible(nodo->cadena, diccionario->cadena))
 	{
-		insertar(arbol->der, v);
+		insertarEnDiccionario(diccionario->der, nodo);
 	}
 	
 	return true;
 }
 
 
-void preOrden(Diccionario arbol)
+void preOrden(Diccionario diccionario)
 {
-	if (arbol == NULL)
+	if (diccionario == NULL)
 	{
 		return;
 	}
 	
-	mostrarNodo(arbol);
-	preOrden(arbol->izq);
-	preOrden(arbol->der);
+	mostrarNodoDiccionario(diccionario);
+	preOrden(diccionario->izq);
+	preOrden(diccionario->der);
 }
 
 
-void postOrden(Diccionario arbol)
+void postOrden(Diccionario diccionario)
 {
-	if (arbol == NULL)
+	if (diccionario == NULL)
 	{
 		return;
 	}
 	
-	postOrden(arbol->izq);
-	postOrden(arbol->der);
-	mostrarNodo(arbol);
+	postOrden(diccionario->izq);
+	postOrden(diccionario->der);
+	mostrarNodoDiccionario(diccionario);
 }
 
 
-void inOrden(Diccionario arbol)
+void inOrden(Diccionario diccionario)
 {
-	if (arbol == NULL)
+	if (diccionario == NULL)
 	{
 		return;
 	}
 	
-	inOrden(arbol->izq);
-	mostrarNodo(arbol);
-	inOrden(arbol->der);
+	inOrden(diccionario->izq);
+	mostrarNodoDiccionario(diccionario);
+	inOrden(diccionario->der);
 }
 
 
-void borrar(Diccionario &arbol, Cadena x)
+// Borra la ocurrencia de 'valorABorrar' del 'diccionario',
+// esta operacion es sensible para mayusculas.
+void borrarValorDiccionarioSensible(Diccionario &diccionario, Cadena valorABorrar)
 {
-	if (arbol == NULL)
+	if (diccionario == NULL)
 	{
 		return;
 	}
 	
-	if(textoMenor(x, arbol->valor))
+	if(cadenaMenorSensible(valorABorrar, diccionario->cadena))
 	{
-		borrar(arbol->izq, x);
+		borrarValorDiccionarioSensible(diccionario->izq, valorABorrar);
 	}
 	else
 	{
-		if(textoMayor(x, arbol->valor))
+		if(cadenaMayorSensible(valorABorrar, diccionario->cadena))
 		{		  
-			borrar(arbol->der, x);
+			borrarValorDiccionarioSensible(diccionario->der, valorABorrar);
 		}
 		else
 		{
-			Diccionario p = arbol;
-			arbol = unirABB(arbol->izq, arbol->der);
-			destruirNodo(p);
+			Diccionario p = diccionario;
+			diccionario = unirDiccionario(diccionario->izq, diccionario->der);
+			destruirNodoDiccionario(p);
 		}
 	}
 }
 
 
-Diccionario unirABB(Diccionario izq, Diccionario der)
+Diccionario unirDiccionario(Diccionario izq, Diccionario der)
 {
 	if(izq==NULL) return der;
 	if(der==NULL) return izq;
 	
-	Diccionario centro = unirABB(izq->der, der->izq);
+	Diccionario centro = unirDiccionario(izq->der, der->izq);
 	izq->der = centro;
 	der->izq = izq;
 	return der;
 }
 
-void mostrarNodo(Diccionario arbol)
+// Muestra el valor de un nodo de diccionario
+void mostrarNodoDiccionario(Diccionario diccionario)
 {
-	cout << arbol->valor << endl;
+	cout << diccionario->cadena << endl;
 }
 
-void destruirNodo(Diccionario& nodo)
+// Destruye un solo nodo, librerando la cadena y el nodo mismo de la memoria dinamica.
+// No destruye el arbol o sub-arbol, solo el nodo especificado.
+void destruirNodoDiccionario(Diccionario& nodo)
 {
-	delete[] nodo->valor; //eliminar cadena en memoria dinamica
-	delete nodo;
+	delete[] nodo->cadena; //eliminar cadena en memoria dinamica creada por 'crearNodoDiccionario'
+	delete nodo; //eliminar el nodo en memoria dinamica creada por 'crearNodoDiccionario
 }
 
-bool existe(Diccionario& diccionario, Cadena valorObjetivo)
+// Retorna si existe la ocurrencia de 'valorABorrar' del 'diccionario',
+// esta operacion es insensible para mayusculas.
+
+bool existeEnDiccionarioInsensible(Diccionario& diccionario, Cadena valorObjetivo)
 {
 	if(!diccionario)
 	{
 		return false;
 	}
 	
-	if(textoMenorInsensible(diccionario->valor, valorObjetivo))
+	if(textoMenorInsensible(diccionario->cadena, valorObjetivo))
 	{
-		return existe(diccionario->der, valorObjetivo);
+		return existeEnDiccionarioInsensible(diccionario->der, valorObjetivo);
 	}
 	
-	if(textoMayorInsensible(diccionario->valor, valorObjetivo))
+	if(textoMayorInsensible(diccionario->cadena, valorObjetivo))
 	{
-		return existe(diccionario->izq, valorObjetivo);
+		return existeEnDiccionarioInsensible(diccionario->izq, valorObjetivo);
 	}
 	
 	return true;

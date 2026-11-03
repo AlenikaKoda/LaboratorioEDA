@@ -199,7 +199,7 @@ void eliminarOcurrenciasPalabra(Linea texto, Cadena palabra)
 				//si la palabra actual es la palabra a borrar, se llama a la
 				//funcion "eliminarPalabraEnPos", pasando la posicion y linea
 				//actuales
-				if  (cadenasIgualesMayusMinus(aux->texto, palabra))
+				if  (cadenasIgualesSensible(aux->texto, palabra))
 				{
 					//primero se mueve el puntero auxiliar y luego se llama a 
 					//la funcion para evitar problemas de segmentacion

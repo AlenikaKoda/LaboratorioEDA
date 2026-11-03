@@ -7,6 +7,7 @@ struct ColaPalabras {
 	Palabra frente;
 	Palabra fondo;
 };
+
 Palabra primero(ColaPalabras);
 void encolar(ColaPalabras&, Palabra);
 Palabra desencolar(ColaPalabras&);
@@ -16,8 +17,7 @@ bool colaVacia(ColaPalabras);
 
 #define MAX_CANT_ULTIMAS_PALABRAS 3
 
-struct Historial
-{
+struct Historial {
 	ColaPalabras cola;
 	int longitud;
 };

@@ -68,78 +68,78 @@ Cadena usoComando(Cadena comando, int &esperados)
 
 	esperados = 0;
 
-	if (cadenasIguales(comando, (Cadena)"InsertarLinea"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"InsertarLinea"))
 	{
 		uso = (Cadena)"InsertarLinea";
 	}
 
-	if (cadenasIguales(comando, (Cadena)"InsertarLineaEnPosicion"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"InsertarLineaEnPosicion"))
 	{
 		uso = (Cadena)"InsertarLineaEnPosicion <posicionLinea>";
 		esperados = 1;
 	}
 
-	if (cadenasIguales(comando, (Cadena)"BorrarLinea"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarLinea"))
 	{
 		uso = (Cadena)"BorrarLinea <posicionLinea>";
 		esperados = 1;
 	}
 
-	if (cadenasIguales(comando, (Cadena)"BorrarOcurrenciasPalabraEnTexto"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarOcurrenciasPalabraEnTexto"))
 	{
 		uso = (Cadena)"BorrarOcurrenciasPalabraEnTexto <palabra>";
 		esperados = 1;
 	}
 
-	if (cadenasIguales(comando, (Cadena)"BorrarTodo"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarTodo"))
 	{
 		uso = (Cadena)"BorrarTodo";
 	}
 
-	if (cadenasIguales(comando, (Cadena)"ImprimirTexto"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirTexto"))
 	{
 		uso = (Cadena)"ImprimirTexto";
 	}
 
-	if (cadenasIguales(comando, (Cadena)"InsertarPalabra"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"InsertarPalabra"))
 	{
 		uso = (Cadena)"InsertarPalabra <posicionLinea> <posicionPalabra> <palabra>";
 		esperados = 3;
 	}
 
-	if (cadenasIguales(comando, (Cadena)"BorrarPalabra"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarPalabra"))
 	{
 		uso = (Cadena)"BorrarPalabra <posicionLinea> <posicionPalabra>";
 		esperados = 2;
 	}
 
-	if (cadenasIguales(comando, (Cadena)"ImprimirLinea"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirLinea"))
 	{
 		uso = (Cadena)"ImprimirLinea <posicionLinea>";
 		esperados = 1;
 	}
 
 	// No lleva argumentos.
-	if (cadenasIguales(comando, (Cadena)"ImprimirUltimasPalabras"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirUltimasPalabras"))
 	{
 		uso = (Cadena)"ImprimirUltimasPalabras";
 	}
 
 	// Lleva un argumento: la palabra.
-	if (cadenasIguales(comando, (Cadena)"IngresarPalabraDiccionario"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"IngresarPalabraDiccionario"))
 	{
 		uso = (Cadena)"IngresarPalabraDiccionario <palabra>";
 		esperados = 1;
 	}
 
 	// No lleva argumentos.
-	if (cadenasIguales(comando, (Cadena)"ImprimirTextoIncorrecto"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirTextoIncorrecto"))
 	{
 		uso = (Cadena)"ImprimirTextoIncorrecto";
 		esperados = 0;
 	}
 
-	if (cadenasIguales(comando, (Cadena)"Salir"))
+	if (cadenasIgualesInsensibles(comando, (Cadena)"Salir"))
 	{
 		uso = (Cadena)"Salir";
 	}
@@ -177,14 +177,14 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 	if (comando != NULL)
 	{
 		// InsertarLinea no lleva argumentos.
-		if (cadenasIguales(comando, (Cadena)"InsertarLinea") && arg1 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"InsertarLinea") && arg1 == NULL)
 		{
 			ret = insertarLinea(texto, crearLinea());
 			valido = true;
 		}
 
 		// InsertarLineaEnPosicion lleva la posicion de la linea.
-		if (cadenasIguales(comando, (Cadena)"InsertarLineaEnPosicion") && arg1 != NULL && arg2 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"InsertarLineaEnPosicion") && arg1 != NULL && arg2 == NULL)
 		{
 			ret = InsertarLineaEnPosicion(texto, atoi(arg1));
 
@@ -197,7 +197,7 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 		}
 
 		// BorrarLinea lleva la posicion de la linea.
-		if (cadenasIguales(comando, (Cadena)"BorrarLinea") && arg1 != NULL && arg2 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarLinea") && arg1 != NULL && arg2 == NULL)
 		{
 			ret = BorrarLinea(texto, atoi(arg1));
 
@@ -210,28 +210,28 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 		}
 
 		// BorrarTodo no lleva argumentos.
-		if (cadenasIguales(comando, (Cadena)"BorrarTodo") && arg1 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarTodo") && arg1 == NULL)
 		{
 			ret = BorrarTodo(texto);
 			valido = true;
 		}
 
 		// BorrarOcurrenciasPalabraEnTexto lleva la palabra a borrar.
-		if (cadenasIguales(comando, (Cadena)"BorrarOcurrenciasPalabraEnTexto") && arg1 != NULL && arg2 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarOcurrenciasPalabraEnTexto") && arg1 != NULL && arg2 == NULL)
 		{
 			ret = BorrarOcurrenciasPalabraEnTexto(texto, arg1);
 			valido = true;
 		}
 
 		// ImprimirTexto no lleva argumentos.
-		if (cadenasIguales(comando, (Cadena)"ImprimirTexto") && arg1 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirTexto") && arg1 == NULL)
 		{
 			ret = ImprimirTexto(texto);
 			valido = true;
 		}
 
 		// InsertarPalabra lleva la posicion de la linea, la posicion de la palabra y la palabra.
-		if (cadenasIguales(comando, (Cadena)"InsertarPalabra") && arg1 != NULL && arg2 != NULL && arg3 != NULL && arg4 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"InsertarPalabra") && arg1 != NULL && arg2 != NULL && arg3 != NULL && arg4 == NULL)
 		{
 			ret = InsertarPalabra(texto, atoi(arg1), atoi(arg2), arg3);
 
@@ -252,7 +252,7 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 		}
 
 		// BorrarPalabra lleva la posicion de la linea y la posicion de la palabra.
-		if (cadenasIguales(comando, (Cadena)"BorrarPalabra") && arg1 != NULL && arg2 != NULL && arg3 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarPalabra") && arg1 != NULL && arg2 != NULL && arg3 == NULL)
 		{
 			ret = BorrarPalabra(texto, atoi(arg1), atoi(arg2));
 
@@ -267,7 +267,7 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 		}
 
 		// ImprimirLinea lleva la posicion de la linea.
-		if (cadenasIguales(comando, (Cadena)"ImprimirLinea") && arg1 != NULL && arg2 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirLinea") && arg1 != NULL && arg2 == NULL)
 		{
 			ret = ImprimirLinea(texto, atoi(arg1));
 
@@ -280,14 +280,14 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 		}
 
 		// ImprimirUltimasPalabras no lleva argumentos.
-		if (cadenasIguales(comando, (Cadena)"ImprimirUltimasPalabras") && arg1 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirUltimasPalabras") && arg1 == NULL)
 		{
 			ret = ImprimirUltimasPalabras(historial);
 			valido = true;
 		}
 
 		// IngresarPalabraDiccionario lleva un argumento: la palabra.
-		if (cadenasIguales(comando, (Cadena)"IngresarPalabraDiccionario") && arg1 != NULL && arg2 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"IngresarPalabraDiccionario") && arg1 != NULL && arg2 == NULL)
 		{
 			ret = IngresarPalabraDiccionario(diccionario, arg1);
 
@@ -300,14 +300,14 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 		}
 
 		// ImprimirTextoIncorrecto no lleva argumentos.
-		if (cadenasIguales(comando, (Cadena)"ImprimirTextoIncorrecto") && arg1 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirTextoIncorrecto") && arg1 == NULL)
 		{
 			ImprimirTextoIncorrecto(diccionario, texto);
 			valido = true;
 		}
 
 		// Salir no lleva argumentos y corta la ejecucion.
-		if (cadenasIguales(comando, (Cadena)"Salir") && arg1 == NULL)
+		if (cadenasIgualesInsensibles(comando, (Cadena)"Salir") && arg1 == NULL)
 		{
 			seguir = false;
 			valido = true;
