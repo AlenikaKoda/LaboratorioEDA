@@ -166,16 +166,8 @@ TipoRetorno ImprimirLinea(Linea texto, Posicion posicionLinea)
 	return ret;
 }
 
-//operacion 16 de la letra: muestra las ultimas palabras ingresadas, siendo
-//el maximo de palabras recordadas el numero indicado por la constante
-//"MAX_CANT_ULTIMAS_PALABRAS"
-//nunca falla, si no hay palabras se le muestra un mensaje al usuario
-TipoRetorno ImprimirUltimasPalabras(Historial historial)
-{
-	mostrarHistorial(historial);
-	return OK;
-}
-
+//operacion 12 de la letra: ingresa una palabra palabra al diccionario si esta no fue ya ingresada
+//devuelve ERROR si la palabra ya existe en el diccionario
 TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
 {
 	// la cadena es copiada por crearNodo, no es necesario
@@ -194,6 +186,9 @@ TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
 	return OK;
 }
 
+//operacion 15 de la letra: Muestra todas las palabras del texto que no esten en
+//el diccionario, junto con el numero de la linea
+//si el texto no tiene lineas, se muestra el mensaje: "Texto vacio"
 TipoRetorno ImprimirTextoIncorrecto(Diccionario diccionario, Linea linea)
 {
 	Palabra palabra;
@@ -231,5 +226,15 @@ TipoRetorno ImprimirTextoIncorrecto(Diccionario diccionario, Linea linea)
 		linea = linea->siguiente;
 	}
 	
+	return OK;
+}
+
+//operacion 16 de la letra: muestra las ultimas palabras ingresadas, siendo
+//el maximo de palabras recordadas el numero indicado por la constante
+//"MAX_CANT_ULTIMAS_PALABRAS"
+//nunca falla, si no hay palabras se le muestra un mensaje al usuario
+TipoRetorno ImprimirUltimasPalabras(Historial historial)
+{
+	mostrarHistorial(historial);
 	return OK;
 }
