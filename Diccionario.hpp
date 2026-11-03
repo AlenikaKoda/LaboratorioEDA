@@ -20,4 +20,5 @@ Diccionario unirABB(Diccionario, Diccionario);
 
 void mostrarNodo(Diccionario);
 void destruirNodo(Diccionario&);
+bool existe(Diccionario&, Cadena);
 #endif

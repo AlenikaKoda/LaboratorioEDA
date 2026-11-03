@@ -126,3 +126,23 @@ void destruirNodo(Diccionario& nodo)
 	delete[] nodo->valor; //eliminar cadena en memoria dinamica
 	delete nodo;
 }
+
+bool existe(Diccionario& diccionario, Cadena valorObjetivo)
+{
+	if(!diccionario)
+	{
+		return false;
+	}
+	
+	if(textoMenorInsensible(diccionario->valor, valorObjetivo))
+	{
+		return existe(diccionario->der, valorObjetivo);
+	}
+	
+	if(textoMayorInsensible(diccionario->valor, valorObjetivo))
+	{
+		return existe(diccionario->izq, valorObjetivo);
+	}
+	
+	return true;
+}

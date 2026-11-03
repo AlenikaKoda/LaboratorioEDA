@@ -183,3 +183,38 @@ TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
 	
 	return OK;
 }
+
+TipoRetorno ImprimirTextoIncorrecto(Diccionario diccionario, Linea linea)
+{
+	Palabra palabra;
+	int numLinea = 1;
+	
+	if(linea == NULL)
+	{
+		cout << "Texto vacio" << endl;
+		return OK;
+	}
+	
+	while(linea)
+	{
+		cout << numLinea << ": ";
+		
+		palabra = linea->palabras;
+		while(palabra)
+		{
+			if(!existe(diccionario, palabra->texto))
+			{
+				cout << palabra->texto << " ";
+			}
+			
+			palabra = palabra->siguiente;
+		}
+		
+		numLinea++;
+		cout << endl;
+		
+		linea = linea->siguiente;
+	}
+	
+	return OK;
+}

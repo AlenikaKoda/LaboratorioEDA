@@ -93,6 +93,11 @@ Cadena usoComando(Cadena comando, int &esperados)
 		uso = (Cadena)"IngresarPalabraDiccionario <palabra>";
 		esperados = 1;
 	}
+	if (cadenasIguales(comando, (Cadena)"ImprimirTextoIncorrecto"))
+	{
+		uso = (Cadena)"ImprimirTextoIncorrecto";
+		esperados = 0;
+	}
 	if (cadenasIguales(comando, (Cadena)"Salir"))
 	{
 		uso = (Cadena)"Salir";
@@ -211,6 +216,13 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 			{
 				motivo = (Cadena)"La palabra ya existe en el diccionario";
 			}
+			valido = true;
+		}
+		
+		// No lleva argumentos
+		if (cadenasIguales(comando, (Cadena)"ImprimirTextoIncorrecto") && !arg1)
+		{
+			ImprimirTextoIncorrecto(diccionario, texto);
 			valido = true;
 		}
 		
