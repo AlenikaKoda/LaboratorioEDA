@@ -59,6 +59,14 @@ TipoRetorno BorrarTodo(Linea &texto)
 	return OK;
 }
 
+//operacion 5 de la letra: borra todas las ocurrencias de una palabra en el texto
+//nunca da error, si la palabra no aparece en el texto, no pasa nada
+TipoRetorno BorrarOcurrenciasPalabraEnTexto(Linea texto, Cadena palabra)
+{
+	eliminarOcurrenciasPalabra(texto, palabra);
+	return OK;
+}
+
 //operacion 6 de la letra: muestra todas las lineas del texto con su numero y sus palabras
 //si el texto no tiene lineas muestra Texto vacio
 TipoRetorno ImprimirTexto(Linea texto)

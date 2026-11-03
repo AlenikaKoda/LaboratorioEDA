@@ -173,3 +173,52 @@ void mostrarTexto(Linea texto)
 		numero++;
 	}
 }
+
+//elimina todas las ocurrencias de una palabra en el texto, respetando las
+//mayusculas y minusculas
+void eliminarOcurrenciasPalabra(Linea texto, Cadena palabra)
+{
+	Posicion pp;  //variable para guardar la posicion de la palabra
+	Palabra aux = NULL;	 //puntero auxiliar para recorrer las palabras en la linea
+	
+	if (textoVacio(texto)) return;  //si el texto esta vacio, no hace nada
+	
+	//recorre cada linea en el texto
+	while (texto)
+	{
+		//"aux" pasa a apuntar a la primera palabra de la linea
+		aux = texto->palabras;
+		pp = 1;
+		
+		//se verifica si la linea no esta vacia, si lo esta, se pasa a la siguiente
+		if (!listaPalabrasVacia(texto->palabras))
+		{
+			//se recorren todas las palabras en la linea
+			while (aux)
+			{
+				//si la palabra actual es la palabra a borrar, se llama a la
+				//funcion "eliminarPalabraEnPos", pasando la posicion y linea
+				//actuales
+				if  (cadenasIgualesMayusMinus(aux->texto, palabra))
+				{
+					//primero se mueve el puntero auxiliar y luego se llama a 
+					//la funcion para evitar problemas de segmentacion
+					aux = aux->siguiente;
+					eliminarPalabraEnPos(texto->palabras, pp);
+				}
+				else
+				{
+					//solo de sebe aumentar la posicion cuando no se 
+					//elimina la palabra. Si por ejemplo se elimina la palabra
+					//en la posicion 2, la palabra 3 se mueve una posicion mas
+					//arriba, por lo que no es necesario aumentar "pp"
+					aux = aux->siguiente;
+					pp++;
+				}
+			}
+		}
+		
+		//pasamos a la siguiente linea
+		texto = texto->siguiente;
+	}
+}

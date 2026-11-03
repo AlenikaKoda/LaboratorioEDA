@@ -22,4 +22,5 @@ void liberarLinea(Linea &);   //libera la memoria de una linea (y de sus palabra
 void liberarTexto(Linea &);   //libera la memoria de todas las lineas
 void mostrarLinea(Linea, Posicion);   //muestra una linea con su numero
 void mostrarTexto(Linea);   //muestra todas las lineas con su numero
+void eliminarOcurrenciasPalabra(Linea, Cadena); //elimina todas las ocurrencias de una cierta palabra en el texto
 #endif
