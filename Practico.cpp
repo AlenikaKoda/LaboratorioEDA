@@ -167,3 +167,19 @@ TipoRetorno ImprimirUltimasPalabras(Historial historial)
 	mostrarHistorial(historial);
 	return OK;
 }
+
+TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
+{
+	// la cadena es copiada por crearNodo, no es necesario
+	// crear una copia aqui.
+	Diccionario nodo = crearNodoDiccionario(cadena);
+	bool insertado = insertar(diccionario, nodo);
+	
+	if(!insertado)
+	{
+		destruirNodo(nodo);
+		return ERROR;
+	}
+	
+	return OK;
+}

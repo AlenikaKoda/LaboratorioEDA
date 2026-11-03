@@ -10,12 +10,14 @@ struct nodoDiccionario
 };
 typedef nodoDiccionario *Diccionario;
 
-void mostrarNodo(Diccionario);
 Diccionario crearNodoDiccionario(Cadena);
-void insertar (Diccionario &, Diccionario);
+bool insertar (Diccionario &, Diccionario);
 void preOrden(Diccionario);
 void postOrden(Diccionario);
 void inOrden(Diccionario);
 void borrar(Diccionario &, Cadena);
 Diccionario unirABB(Diccionario, Diccionario);
+
+void mostrarNodo(Diccionario);
+void destruirNodo(Diccionario&);
 #endif

@@ -3,6 +3,7 @@
 #include "Tipos.hpp"
 #include "Linea.hpp"
 #include "Historial.hpp"
+#include "Diccionario.hpp"
 
 TipoRetorno insertarLinea(Linea &, Linea);   //(1) inserta la linea indicada (vacia) al final del texto
 TipoRetorno InsertarLineaEnPosicion(Linea &, Posicion);   //(2) inserta una linea vacia en la posicion indicada
@@ -14,4 +15,5 @@ TipoRetorno BorrarPalabra(Linea &, Posicion, Posicion);   //(9) borra la palabra
 TipoRetorno ImprimirLinea(Linea, Posicion);   //(11) imprime una linea por pantalla
 
 TipoRetorno ImprimirUltimasPalabras(Historial);	//(16) imprime las ultimas palabras ingresadas por el usuario
+TipoRetorno IngresarPalabraDiccionario(Diccionario&, Cadena); // (12) Ingresa una palabra al diccionario si ésta no se encuentra en el diccionario.
 #endif

@@ -88,6 +88,11 @@ Cadena usoComando(Cadena comando, int &esperados)
 		uso = (Cadena)"ImprimirLinea <posicionLinea>";
 		esperados = 1;
 	}
+	if (cadenasIguales(comando, (Cadena)"IngresarPalabraDiccionario"))
+	{
+		uso = (Cadena)"IngresarPalabraDiccionario <palabra>";
+		esperados = 1;
+	}
 	if (cadenasIguales(comando, (Cadena)"Salir"))
 	{
 		uso = (Cadena)"Salir";
@@ -198,6 +203,17 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 			ret = ImprimirUltimasPalabras(historial);
 			valido = true;
 		}
+		// Lleva un argumento: la palabra.
+		if (cadenasIguales(comando, (Cadena)"IngresarPalabraDiccionario") && arg1 && !arg2)
+		{
+			ret = IngresarPalabraDiccionario(diccionario, arg1);
+			if(ret == ERROR)
+			{
+				motivo = (Cadena)"La palabra ya existe en el diccionario";
+			}
+			valido = true;
+		}
+		
 		//Salir no lleva argumentos y corta la ejecucion
 		if (cadenasIguales(comando, (Cadena)"Salir") && arg1 == NULL)
 		{
