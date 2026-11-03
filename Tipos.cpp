@@ -93,3 +93,35 @@ bool textoMayor(Cadena a, Cadena b)
 	
 	return lenA > lenB;
 }
+
+// Simulacion del operator < para cadenas, se basa en la tabla ascii, Insensible
+bool textoMenorInsensible(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (tolower(a[i]) < tolower(b[i])) return true;
+		if (tolower(a[i]) > tolower(b[i])) return false;
+	}
+	
+	return lenA < lenB;
+}
+
+// Simulacion del operator > para cadenas, se basa en la tabla ascii, Insensible
+bool textoMayorInsensible(Cadena a, Cadena b)
+{
+	int lenA = strlen(a);
+	int lenB = strlen(b);
+	int len = lenA < lenB ? lenA : lenB;
+	
+	for (int i = 0; i < len; ++i)
+	{
+		if (tolower(a[i]) > tolower(b[i])) return true;
+		if (tolower(a[i]) < tolower(b[i])) return false;
+	}
+	
+	return lenA > lenB;
+}

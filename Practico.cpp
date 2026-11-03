@@ -175,3 +175,54 @@ TipoRetorno ImprimirUltimasPalabras(Historial historial)
 	mostrarHistorial(historial);
 	return OK;
 }
+
+TipoRetorno IngresarPalabraDiccionario(Diccionario& diccionario, Cadena cadena)
+{
+	// la cadena es copiada por crearNodo, no es necesario
+	// crear una copia aqui.
+	Diccionario nodo = crearNodoDiccionario(cadena);
+	bool insertado = insertar(diccionario, nodo);
+	
+	if(!insertado)
+	{
+		destruirNodo(nodo);
+		return ERROR;
+	}
+	
+	return OK;
+}
+
+TipoRetorno ImprimirTextoIncorrecto(Diccionario diccionario, Linea linea)
+{
+	Palabra palabra;
+	int numLinea = 1;
+	
+	if(linea == NULL)
+	{
+		cout << "Texto vacio" << endl;
+		return OK;
+	}
+	
+	while(linea)
+	{
+		cout << numLinea << ": ";
+		
+		palabra = linea->palabras;
+		while(palabra)
+		{
+			if(!existe(diccionario, palabra->texto))
+			{
+				cout << palabra->texto << " ";
+			}
+			
+			palabra = palabra->siguiente;
+		}
+		
+		numLinea++;
+		cout << endl;
+		
+		linea = linea->siguiente;
+	}
+	
+	return OK;
+}
