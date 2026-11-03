@@ -138,6 +138,20 @@ Cadena usoComando(Cadena comando, int &esperados)
 		uso = (Cadena)"ImprimirTextoIncorrecto";
 		esperados = 0;
 	}
+	
+	// No lleva argumentos.
+	if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarPalabraDiccionario"))
+	{
+		uso = (Cadena)"BorrarPalabraDiccionario <palabra>";
+		esperados = 1;
+	}
+	
+	// No lleva argumentos.
+	if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirDiccionario"))
+	{
+		uso = (Cadena)"ImprimirDiccionario";
+		esperados = 0;
+	}
 
 	if (cadenasIgualesInsensibles(comando, (Cadena)"Salir"))
 	{
@@ -305,7 +319,27 @@ bool ejecutarComando(Linea &texto, Historial& historial, Diccionario& diccionari
 			ImprimirTextoIncorrecto(diccionario, texto);
 			valido = true;
 		}
+		
+		// BorrarPalabraDiccionario lleva un arguento: la palabra a borrar.
+		if (cadenasIgualesInsensibles(comando, (Cadena)"BorrarPalabraDiccionario") && arg1 != NULL && arg2 == NULL)
+		{
+			ret = BorrarPalabraDiccionario(diccionario, arg1);
 
+			if (ret == ERROR)
+			{
+				motivo = (Cadena)"La palabra no existe en el diccionario";
+			}
+
+			valido = true;
+		}
+
+		// ImprimirDiccionario no lleva argumentos.
+		if (cadenasIgualesInsensibles(comando, (Cadena)"ImprimirDiccionario") && arg1 == NULL)
+		{
+			ImprimirDiccionario(diccionario);
+			valido = true;
+		}
+		
 		// Salir no lleva argumentos y corta la ejecucion.
 		if (cadenasIgualesInsensibles(comando, (Cadena)"Salir") && arg1 == NULL)
 		{

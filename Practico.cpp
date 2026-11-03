@@ -238,3 +238,36 @@ TipoRetorno ImprimirUltimasPalabras(Historial historial)
 	mostrarHistorial(historial);
 	return OK;
 }
+
+//operacion 13 de la letra: borra una palabra del diccionario si se encuentra en el
+//la comparacion ignora las mayusculas, o sea 'hola' y 'hOla' son la misma palabra
+//devuelve ERROR si la palabra no esta en el diccionario
+TipoRetorno BorrarPalabraDiccionario(Diccionario& diccionario, Cadena palabraABorrar)
+{
+	//si la palabra no esta en el diccionario no hay nada que borrar
+	if (!existeEnDiccionarioInsensible(diccionario, palabraABorrar))
+	{
+		return ERROR;
+	}
+
+	//la palabra guardada se borra con su escritura original, sin normalizar
+	borrarValorDiccionarioInsensible(diccionario, palabraABorrar);
+	return OK;
+}
+
+// Muestra las palabras del diccionario ordenadas alfabéticamente, de menor a mayor 
+// (de la A a la Z). Debe imprimirse según muestra el ejemplo. Cuando el diccionario 
+// no tiene palabras debe mostrarse el mensaje "Diccionario vacio".
+TipoRetorno ImprimirDiccionario(Diccionario diccionario)
+{
+	//un diccionario sin palabras muestra un mensaje en vez de las palabras
+	if (diccionario == NULL)
+	{
+		cout << "Diccionario vacio" << endl;
+	}
+	else
+	{
+		inOrden(diccionario);
+	}
+	return OK;
+}

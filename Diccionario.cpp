@@ -16,36 +16,33 @@ Diccionario crearNodoDiccionario(Cadena valor)
 
 // Inserta un nodo de diccionario llamado 'nodo' en 'diccionario'.
 // Importante que el nodo sea nuevo o que no sea referenciado por otro nodo.
-// Esta operacion es sensible ante mayusculas.
-// Retorna true si la insersion fue correcta, false el valor del nodo ya existia.
+// La palabra se guarda EXACTAMENTE como la escribio el usuario (sin normalizar),
+// pero para decidir su posicion en el arbol y para detectar repetidas se IGNORAN
+// las mayusculas: 'hola' y 'hOla' son la MISMA palabra al comparar.
+// Retorna true si la insersion fue correcta, false si el valor del nodo ya existia.
 bool insertarEnDiccionario(Diccionario &diccionario, Diccionario nodo)
 {
+	// Se llego a un hueco: el nodo se enlaza aca.
 	if (diccionario == NULL)
 	{
 		diccionario = nodo;
 		return true;
 	}
 	
-	if(cadenasIgualesInsensibles(diccionario->cadena, nodo->cadena))
+	// Se propaga el resultado de la llamada recursiva, asi una repetida
+	// que esta en cualquier nivel del arbol (no solo en la raiz) retorna false.
+	if(textoMenorInsensible(nodo->cadena, diccionario->cadena))
 	{
-		return false;
+		return insertarEnDiccionario(diccionario->izq, nodo);
 	}
 	
-	// Usamos la version 'Sensible' ya que se pide que las palabras
-	// en el diccionario se guarden respetando la entrada del usuario,
-	// por lo que 'hola' y 'hOla' son diferentes al GUARDARLAS del diccionario.
-	// sin embargo, al consultar el diccionario 'hola' y 'hOla' son iguales.
-
-	if(cadenaMenorSensible(nodo->cadena, diccionario->cadena))
+	if(textoMayorInsensible(nodo->cadena, diccionario->cadena))
 	{
-		insertarEnDiccionario(diccionario->izq, nodo);
-	}
-	if(cadenaMayorSensible(nodo->cadena, diccionario->cadena))
-	{
-		insertarEnDiccionario(diccionario->der, nodo);
+		return insertarEnDiccionario(diccionario->der, nodo);
 	}
 	
-	return true;
+	// Ni menor ni mayor ignorando mayusculas: ya existe.
+	return false;
 }
 
 
@@ -117,6 +114,35 @@ void borrarValorDiccionarioSensible(Diccionario &diccionario, Cadena valorABorra
 }
 
 
+// Borra la ocurrencia de 'valorABorrar' del 'diccionario',
+// esta operacion ignora las mayusculas: 'hola' y 'hOla' son la misma palabra.
+void borrarValorDiccionarioInsensible(Diccionario &diccionario, Cadena valorABorrar)
+{
+	if (diccionario == NULL)
+	{
+		return;
+	}
+
+	if(textoMenorInsensible(valorABorrar, diccionario->cadena))
+	{
+		borrarValorDiccionarioInsensible(diccionario->izq, valorABorrar);
+	}
+	else
+	{
+		if(textoMayorInsensible(valorABorrar, diccionario->cadena))
+		{
+			borrarValorDiccionarioInsensible(diccionario->der, valorABorrar);
+		}
+		else
+		{
+			Diccionario p = diccionario;
+			diccionario = unirDiccionario(diccionario->izq, diccionario->der);
+			destruirNodoDiccionario(p);
+		}
+	}
+}
+
+
 Diccionario unirDiccionario(Diccionario izq, Diccionario der)
 {
 	if(izq==NULL) return der;
@@ -140,6 +166,20 @@ void destruirNodoDiccionario(Diccionario& nodo)
 {
 	delete[] nodo->cadena; //eliminar cadena en memoria dinamica creada por 'crearNodoDiccionario'
 	delete nodo; //eliminar el nodo en memoria dinamica creada por 'crearNodoDiccionario
+}
+
+// Libera toda la memoria del arbol (cadenas y nodos) y lo deja vacio.
+void destruirDiccionario(Diccionario &diccionario)
+{
+	if (diccionario == NULL)
+	{
+		return;
+	}
+	
+	destruirDiccionario(diccionario->izq);
+	destruirDiccionario(diccionario->der);
+	destruirNodoDiccionario(diccionario);
+	diccionario = NULL;
 }
 
 // Retorna si existe la ocurrencia de 'valorABorrar' del 'diccionario',
