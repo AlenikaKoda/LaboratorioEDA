@@ -174,8 +174,8 @@ void mostrarTexto(Linea texto)
 	}
 }
 
-//elimina todas las ocurrencias de una palabra en el texto, respetando las
-//mayusculas y minusculas
+//elimina todas las ocurrencias de una palabra en el texto, ignorando las
+//mayusculas y minusculas ('hola' y 'hOla' son la misma palabra)
 void eliminarOcurrenciasPalabra(Linea texto, Cadena palabra)
 {
 	Posicion pp;  //variable para guardar la posicion de la palabra
@@ -199,7 +199,7 @@ void eliminarOcurrenciasPalabra(Linea texto, Cadena palabra)
 				//si la palabra actual es la palabra a borrar, se llama a la
 				//funcion "eliminarPalabraEnPos", pasando la posicion y linea
 				//actuales
-				if  (cadenasIgualesSensible(aux->texto, palabra))
+				if  (cadenasIgualesInsensibles(aux->texto, palabra))
 				{
 					//primero se mueve el puntero auxiliar y luego se llama a 
 					//la funcion para evitar problemas de segmentacion

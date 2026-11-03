@@ -27,5 +27,7 @@ int main()
 	
 	//libera la memoria antes de terminar
 	BorrarTodo(texto);
+	destruirDiccionario(diccionario);
+	liberarHistorial(historial);
 	return 0;
 }

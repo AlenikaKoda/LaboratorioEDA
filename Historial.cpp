@@ -42,20 +42,23 @@ void encolar(ColaPalabras &cola, Palabra q)
 	}
 }
 
+// Quita el primer nodo de la cola y lo devuelve (NULL si la cola esta vacia).
+// El nodo devuelto NO se libera: quien llama es responsable de liberarlo.
 Palabra desencolar(ColaPalabras& cola)
 {
-	if(!cola.frente)
+	Palabra extraido = cola.frente;
+	
+	if(extraido != NULL)
 	{
-		return NULL;	
+		cola.frente = extraido->siguiente;
+		// Si la cola quedo vacia, el fondo tampoco debe apuntar al nodo extraido.
+		if(cola.frente == NULL)
+		{
+			cola.fondo = NULL;
+		}
+		extraido->siguiente = NULL;
 	}
-	Palabra aux = new nodoPalabra, eliminar;
-	aux->texto = cola.frente->texto;
-	aux->siguiente = NULL;
-	eliminar = cola.frente; 
-	cola.frente = cola.frente->siguiente;
-	delete[] eliminar->texto;
-	delete eliminar;  
-	return aux;
+	return extraido;
 }
 
 void verCola(ColaPalabras c)
@@ -80,20 +83,44 @@ void agregarAHistorial(Historial& historial, Cadena textoPalabra)
 	encolar(historial.cola, crearPalabra(textoPalabra));
 	historial.longitud++;
 	
+	// Si se supera el maximo se descarta la palabra mas vieja (O(1)) y se libera.
 	if(historial.longitud > MAX_CANT_ULTIMAS_PALABRAS)
 	{
-		desencolar(historial.cola);
+		Palabra descartada = desencolar(historial.cola);
+		liberarPalabra(descartada);
 		historial.longitud--;
 	}
+}
+
+// Libera todas las palabras del historial y lo deja vacio.
+void liberarHistorial(Historial& historial)
+{
+	liberarPalabras(historial.cola.frente);
+	historial.cola.fondo = NULL;
+	historial.longitud = 0;
+}
+
+// Muestra las palabras desde la ultima ingresada hasta la mas vieja.
+// La cola guarda las palabras de la mas vieja a la mas nueva, por eso se
+// recorre recursivamente y se muestra al volver (orden inverso).
+static void mostrarPalabrasInverso(Palabra palabra)
+{
+	if(palabra == NULL)
+	{
+		return;
+	}
+	
+	mostrarPalabrasInverso(palabra->siguiente);
+	cout << palabra->texto << endl;
 }
 
 void mostrarHistorial(Historial historial)
 {
 	if(colaVacia(historial.cola))
 	{
-		cout << "El historial esta vacio." << endl;
+		cout << "No se ingresaron palabras" << endl;
 		return;
 	}
 	
-	verCola(historial.cola);
+	mostrarPalabrasInverso(historial.cola.frente);
 }

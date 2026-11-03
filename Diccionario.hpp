@@ -20,9 +20,11 @@ void preOrden(Diccionario);
 void postOrden(Diccionario);
 void inOrden(Diccionario);
 void borrarValorDiccionarioSensible(Diccionario &, Cadena);
+void borrarValorDiccionarioInsensible(Diccionario &, Cadena);
 Diccionario unirDiccionario(Diccionario, Diccionario);
 
 void mostrarNodoDiccionario(Diccionario);
 void destruirNodoDiccionario(Diccionario&);
+void destruirDiccionario(Diccionario&);   // libera todo el arbol
 bool existeEnDiccionarioInsensible(Diccionario&, Cadena);
 #endif

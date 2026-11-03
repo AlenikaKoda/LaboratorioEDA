@@ -103,8 +103,8 @@ bool textoMenorInsensible(Cadena a, Cadena b)
 	
 	for (int i = 0; i < len; ++i)
 	{
-		if (tolower(a[i]) < tolower(b[i])) return true;
-		if (tolower(a[i]) > tolower(b[i])) return false;
+		if (tolower((unsigned char) a[i]) < tolower((unsigned char) b[i])) return true;
+		if (tolower((unsigned char) a[i]) > tolower((unsigned char) b[i])) return false;
 	}
 	
 	return lenA < lenB;
@@ -119,8 +119,8 @@ bool textoMayorInsensible(Cadena a, Cadena b)
 	
 	for (int i = 0; i < len; ++i)
 	{
-		if (tolower(a[i]) > tolower(b[i])) return true;
-		if (tolower(a[i]) < tolower(b[i])) return false;
+		if (tolower((unsigned char) a[i]) > tolower((unsigned char) b[i])) return true;
+		if (tolower((unsigned char) a[i]) < tolower((unsigned char) b[i])) return false;
 	}
 	
 	return lenA > lenB;

@@ -22,6 +22,7 @@ struct Historial {
 	int longitud;
 };
 void agregarAHistorial(Historial&, Cadena); // La cadena es copiada para ser insertada como palabra en el historial
-void mostrarHistorial(Historial);
+void mostrarHistorial(Historial);   // muestra de la ultima palabra ingresada a la mas vieja
+void liberarHistorial(Historial&);   // libera la memoria del historial
 
 #endif
