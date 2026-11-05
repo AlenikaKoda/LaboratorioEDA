@@ -83,7 +83,7 @@ void agregarAHistorial(Historial& historial, Cadena textoPalabra)
 	encolar(historial.cola, crearPalabra(textoPalabra));
 	historial.longitud++;
 	
-	// Si se supera el maximo se descarta la palabra mas vieja (O(1)) y se libera.
+	// Si se supera el maximo se descarta la palabra mas vieja y se libera.
 	if(historial.longitud > MAX_CANT_ULTIMAS_PALABRAS)
 	{
 		Palabra descartada = desencolar(historial.cola);
